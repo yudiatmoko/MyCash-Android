@@ -1,0 +1,1 @@
+package com.iyam.mycash.data.network.api.model.user.otpimport com.google.gson.annotations.SerializedNameimport androidx.annotation.Keep@Keepdata class VerifyOtpResponse(    @SerializedName("message")    val message: String,    @SerializedName("status")    val status: String)

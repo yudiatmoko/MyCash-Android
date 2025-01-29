@@ -1,0 +1,1 @@
+package com.iyam.mycash.data.network.api.model.user.otpimport androidx.annotation.Keepimport com.iyam.mycash.data.network.api.model.BaseResponse@Keepdata class VerifyOtpRequest(    val baseResponse: BaseResponse)

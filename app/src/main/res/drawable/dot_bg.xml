@@ -1,0 +1,42 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="900dp"
+    android:height="900dp"
+    android:viewportWidth="900"
+    android:viewportHeight="900">
+    <path
+        android:fillColor="@color/md_dark_primaryContainer_mediumContrast"
+        android:pathData="M133,401m-77,0a77,77 0,1 1,154 0a77,77 0,1 1,-154 0" />
+    <path
+        android:fillColor="@color/md_dark_primaryContainer_mediumContrast"
+        android:pathData="M598,868m-5,0a5,5 0,1 1,10 0a5,5 0,1 1,-10 0" />
+    <path
+        android:fillColor="@color/md_dark_primaryContainer_mediumContrast"
+        android:pathData="M793,345m-42,0a42,42 0,1 1,84 0a42,42 0,1 1,-84 0" />
+    <path
+        android:fillColor="@color/md_dark_primaryContainer_mediumContrast"
+        android:pathData="M298,409m-23,0a23,23 0,1 1,46 0a23,23 0,1 1,-46 0" />
+    <path
+        android:fillColor="@color/md_dark_primaryContainer_mediumContrast"
+        android:pathData="M419,829m-20,0a20,20 0,1 1,40 0a20,20 0,1 1,-40 0" />
+    <path
+        android:fillColor="@color/md_dark_primaryContainer_mediumContrast"
+        android:pathData="M634,207m-52,0a52,52 0,1 1,104 0a52,52 0,1 1,-104 0" />
+    <path
+        android:fillColor="@color/md_dark_primaryContainer_mediumContrast"
+        android:pathData="M827,732m-52,0a52,52 0,1 1,104 0a52,52 0,1 1,-104 0" />
+    <path
+        android:fillColor="@color/md_dark_primaryContainer_mediumContrast"
+        android:pathData="M602,573m-8,0a8,8 0,1 1,16 0a8,8 0,1 1,-16 0" />
+    <path
+        android:fillColor="@color/md_dark_primaryContainer_mediumContrast"
+        android:pathData="M28,65m-29,0a29,29 0,1 1,58 0a29,29 0,1 1,-58 0" />
+    <path
+        android:fillColor="@color/md_dark_primaryContainer_mediumContrast"
+        android:pathData="M209,673m-33,0a33,33 0,1 1,66 0a33,33 0,1 1,-66 0" />
+    <path
+        android:fillColor="@color/md_dark_primaryContainer_mediumContrast"
+        android:pathData="M805,63m-4,0a4,4 0,1 1,8 0a4,4 0,1 1,-8 0" />
+    <path
+        android:fillColor="@color/md_dark_primaryContainer_mediumContrast"
+        android:pathData="M649,413m-31,0a31,31 0,1 1,62 0a31,31 0,1 1,-62 0" />
+</vector>

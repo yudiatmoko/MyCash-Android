@@ -1,0 +1,1 @@
+package com.iyam.mycash.data.network.api.model.user.updateimport androidx.annotation.Keepimport com.google.gson.annotations.SerializedName@Keepdata class UserUpdateRequest(    @SerializedName("name")    val name: String,    @SerializedName("phoneNumber")    val phoneNumber: String)

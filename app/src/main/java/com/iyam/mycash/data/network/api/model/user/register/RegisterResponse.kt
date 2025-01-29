@@ -1,0 +1,1 @@
+package com.iyam.mycash.data.network.api.model.user.registerimport androidx.annotation.Keepimport com.google.gson.annotations.SerializedNameimport com.iyam.mycash.data.network.api.model.BaseResponse@Keepdata class RegisterResponse(    val baseResponse: BaseResponse,    @SerializedName("data")    val data: DataRegisterResponse?,)

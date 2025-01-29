@@ -1,0 +1,1 @@
+package com.iyam.mycash.data.network.api.model.user.otpimport com.google.gson.annotations.SerializedNameimport androidx.annotation.Keep@Keepdata class GenerateOtpRequest(    @SerializedName("email")    val email: String)

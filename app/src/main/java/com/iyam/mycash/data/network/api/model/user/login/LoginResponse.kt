@@ -1,0 +1,1 @@
+package com.iyam.mycash.data.network.api.model.user.loginimport com.google.gson.annotations.SerializedNameimport androidx.annotation.Keepimport com.iyam.mycash.data.network.api.model.BaseResponse@Keepdata class LoginResponse(    val baseResponse: BaseResponse,    @SerializedName("data")    val data: DataLoginResponse?,)
