@@ -1,1 +1,14 @@
-package com.iyam.mycash.data.network.api.model.userimport com.google.gson.annotations.SerializedNameimport androidx.annotation.Keepimport com.iyam.mycash.data.network.api.model.BaseResponse@Keepdata class UserResponse(    @SerializedName("data")    val data: DataUserResponse?,    val baseResponse: BaseResponse)
+package com.iyam.mycash.data.network.api.model.user
+
+import androidx.annotation.Keep
+import com.google.gson.annotations.SerializedName
+
+@Keep
+data class UserResponse(
+    @SerializedName("data")
+    val data: DataUserResponse,
+    @SerializedName("status")
+    val status: String,
+    @SerializedName("message")
+    val message: String
+)

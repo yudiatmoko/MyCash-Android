@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("kotlinx-serialization")
     id("kotlin-parcelize")
     id("androidx.navigation.safeargs.kotlin")
     id("com.google.devtools.ksp")
@@ -118,4 +119,8 @@ dependencies {
     implementation(libs.imagepicker)
     // shimmer
     implementation(libs.shimmer)
+    // serializable
+    implementation(libs.kotlinx.serialization.json)
+    // splashscreen
+    implementation(libs.androidx.core.splashscreen)
 }

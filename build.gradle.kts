@@ -1,6 +1,7 @@
 buildscript {
     dependencies {
         classpath(libs.gradle)
+        classpath("org.jetbrains.kotlin:kotlin-serialization:2.1.10")
     }
 }
 

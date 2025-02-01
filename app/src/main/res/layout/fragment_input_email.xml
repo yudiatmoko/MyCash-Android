@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:paddingHorizontal="22dp"
+    android:paddingVertical="12dp"
     tools:context=".ui.resetpassword.InputEmailFragment">
 
     <TextView
@@ -20,7 +23,7 @@
         android:id="@+id/tv_enter_your_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="6dp"
         android:ellipsize="end"
         android:fontFamily="@font/nunito_sans_medium"
         android:maxLines="1"
@@ -32,16 +35,34 @@
         android:id="@+id/form_layout"
         layout="@layout/form_reset_password"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <Button
-        android:id="@+id/send_otp"
-        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:fontFamily="@font/nunito_sans_bold"
-        android:text="@string/continue_text"
-        android:textAllCaps="false"
-        android:textSize="16sp" />
+        android:layout_marginTop="6dp" />
 
+    <FrameLayout
+        android:id="@+id/btn_continue"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:maxHeight="72dp">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/loading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/loading_state"
+            app:lottie_speed="2"
+            tools:visibility="visible" />
+
+        <Button
+            android:id="@+id/btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/nunito_sans_bold"
+            android:text="@string/continue_text"
+            android:textAllCaps="false"
+            android:textSize="16sp" />
+    </FrameLayout>
 </LinearLayout>

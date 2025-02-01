@@ -12,6 +12,8 @@ import com.iyam.mycash.data.network.api.model.user.otp.VerifyOtpRequest
 import com.iyam.mycash.data.network.api.model.user.otp.VerifyOtpResponse
 import com.iyam.mycash.data.network.api.model.user.register.RegisterRequest
 import com.iyam.mycash.data.network.api.model.user.register.RegisterResponse
+import com.iyam.mycash.data.network.api.model.user.resetpassword.ResetPasswordRequest
+import com.iyam.mycash.data.network.api.model.user.resetpassword.ResetPasswordResponse
 import com.iyam.mycash.data.network.api.model.user.update.PasswordUpdateRequest
 import com.iyam.mycash.data.network.api.model.user.update.PasswordUpdateResponse
 import com.iyam.mycash.data.network.api.model.user.update.UserUpdateResponse
@@ -43,12 +45,15 @@ interface MyCashApiService {
     @POST("user/verify-otp")
     suspend fun verifyOtp(@Body request: VerifyOtpRequest): VerifyOtpResponse
 
+    @POST("user/reset-password")
+    suspend fun resetPassword(@Body request: ResetPasswordRequest): ResetPasswordResponse
+
     @Multipart
     @PUT("user/{id}")
     suspend fun userUpdate(
         @Path("id") id: String,
-        @Part("name") name: RequestBody,
-        @Part("phoneNumber") phoneNumber: RequestBody,
+        @Part("name") name: RequestBody?,
+        @Part("phoneNumber") phoneNumber: RequestBody?,
         @Part image: MultipartBody.Part?
     ): UserUpdateResponse
 
@@ -60,7 +65,7 @@ interface MyCashApiService {
 
     @GET("user/{id}")
     suspend fun userById(
-        @Path("id") id: String,
+        @Path("id") id: String
     ): UserResponse
 
     companion object {
@@ -71,7 +76,7 @@ interface MyCashApiService {
         ): MyCashApiService {
             val okHttpClient = OkHttpClient.Builder()
                 .addInterceptor(chucker)
-                .addInterceptor(AuthorizationInterceptor(userPref))
+                .addInterceptor(AuthInterceptor(userPref))
                 .connectTimeout(120, TimeUnit.SECONDS)
                 .readTimeout(120, TimeUnit.SECONDS)
                 .build()

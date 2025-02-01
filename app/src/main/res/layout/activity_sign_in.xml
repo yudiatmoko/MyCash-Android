@@ -44,7 +44,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="22dp"
         android:fontFamily="@font/nunito_sans_bold"
-        android:text="@string/sign_in_now"
+        android:text="@string/sign_in"
         android:textAlignment="center"
         android:textColor="@color/md_dark_primary"
         android:textSize="22sp"
@@ -58,41 +58,59 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="22dp"
-        android:layout_marginTop="12dp"
-        app:layout_constraintBottom_toTopOf="@id/btn_confirm"
+        android:layout_marginTop="6dp"
+        app:layout_constraintBottom_toTopOf="@id/btn_sign_in"
         app:layout_constraintTop_toBottomOf="@id/tv_confirm_otp" />
+
+    <FrameLayout
+        android:id="@+id/btn_sign_in"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:layout_marginHorizontal="22dp"
+        android:maxHeight="72dp"
+        app:layout_constraintBottom_toTopOf="@id/tv_forgot_password"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/form_layout">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/loading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/loading_state"
+            app:lottie_speed="2"
+            tools:visibility="visible" />
+
+        <Button
+            android:id="@+id/btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/nunito_sans_bold"
+            android:text="@string/login"
+            android:textAllCaps="false"
+            android:textSize="16sp" />
+    </FrameLayout>
 
     <TextView
         android:id="@+id/tv_forgot_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="22dp"
         android:fontFamily="@font/nunito_sans_bold"
         android:text="@string/forgot_password"
-        android:textAlignment="textEnd"
-        android:layout_marginHorizontal="22dp"
+        android:textAlignment="center"
         android:textColor="@color/md_dark_primary"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/form_layout" />
-
-    <Button
-        android:id="@+id/btn_confirm"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="22dp"
-        android:layout_marginTop="12dp"
-        android:fontFamily="@font/nunito_sans_bold"
-        android:text="@string/login"
-        android:textAllCaps="false"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@id/tv_timer"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_forgot_password" />
+        app:layout_constraintTop_toBottomOf="@id/btn_sign_in" />
 
     <TextView
-        android:id="@+id/tv_timer"
+        android:id="@+id/tv_dont_have_account"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="22dp"
@@ -103,10 +121,10 @@
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_confirm" />
+        app:layout_constraintTop_toBottomOf="@id/tv_forgot_password" />
 
     <TextView
-        android:id="@+id/tv_resend_otp"
+        android:id="@+id/tv_sign_up"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="22dp"
@@ -117,7 +135,7 @@
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_timer" />
+        app:layout_constraintTop_toBottomOf="@id/tv_dont_have_account" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

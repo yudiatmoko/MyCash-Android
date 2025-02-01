@@ -75,4 +75,16 @@
     <style name="Widget.App.ActionBar" parent="Widget.MaterialComponents.ActionBar.PrimarySurface">
         <item name="titleTextStyle">@style/TextAppearance.App.ActionBar.Title</item>
     </style>
+
+    <!-- Tema SplashScreen -->
+    <style name="Theme.App.Starting" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <!-- Warna latar belakang SplashScreen -->
+        <item name="windowSplashScreenBackground">@color/white</item>
+
+        <!-- Logo atau ikon di tengah SplashScreen -->
+        <item name="windowSplashScreenAnimatedIcon">@drawable/mycash_logo_wtext</item>
+
+        <!-- Durasi animasi ikon (opsional) -->
+        <item name="windowSplashScreenAnimationDuration">500</item>
+    </style>
 </resources>

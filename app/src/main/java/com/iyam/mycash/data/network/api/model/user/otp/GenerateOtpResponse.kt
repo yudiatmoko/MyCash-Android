@@ -1,1 +1,12 @@
-package com.iyam.mycash.data.network.api.model.user.otpimport androidx.annotation.Keepimport com.iyam.mycash.data.network.api.model.BaseResponse@Keepdata class GenerateOtpResponse(    val baseResponse: BaseResponse)
+package com.iyam.mycash.data.network.api.model.user.otp
+
+import androidx.annotation.Keep
+import com.google.gson.annotations.SerializedName
+
+@Keep
+data class GenerateOtpResponse(
+    @SerializedName("status")
+    val status: String,
+    @SerializedName("message")
+    val message: String
+)
