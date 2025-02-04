@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:paddingHorizontal="22dp"
+    android:paddingVertical="12dp"
+    tools:context=".ui.outlet.OutletListFragment">
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/main_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/iv_profile_photo"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Full"
+                tools:src="@tools:sample/avatars" />
+
+            <TextView
+                android:id="@+id/tv_user_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:fontFamily="@font/nunito_sans_bold"
+                android:textAlignment="center"
+                android:textSize="16sp"
+                tools:text="@tools:sample/full_names" />
+
+            <Button
+                android:id="@+id/btn"
+                style="@style/RoundedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/nunito_sans_bold"
+                android:text="@string/add_outlet"
+                android:textAllCaps="false"
+                android:textSize="14sp"
+                app:icon="@drawable/round_add_business_24" />
+
+            <SearchView
+                android:id="@+id/sv_outlet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:background="@drawable/search_view_rounded_bg"
+                android:iconifiedByDefault="false"
+                android:imeOptions="actionSearch"
+                android:queryBackground="@null"
+                android:queryHint="Cari nama toko"
+                android:theme="@style/AppSearchView" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_outlet"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="12dp"
+                tools:listitem="@layout/layout_outlet_item" />
+
+        </LinearLayout>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <include
+        android:id="@+id/state_layout"
+        layout="@layout/state"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+</FrameLayout>

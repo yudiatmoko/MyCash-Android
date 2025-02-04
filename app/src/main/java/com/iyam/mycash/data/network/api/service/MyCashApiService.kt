@@ -3,6 +3,9 @@ package com.iyam.mycash.data.network.api.service
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.iyam.mycash.BuildConfig
 import com.iyam.mycash.data.local.datastore.UserPreferenceDataSource
+import com.iyam.mycash.data.network.api.model.outlet.OutletRequest
+import com.iyam.mycash.data.network.api.model.outlet.OutletResponse
+import com.iyam.mycash.data.network.api.model.outlet.OutletsResponse
 import com.iyam.mycash.data.network.api.model.user.UserResponse
 import com.iyam.mycash.data.network.api.model.user.login.LoginRequest
 import com.iyam.mycash.data.network.api.model.user.login.LoginResponse
@@ -29,6 +32,7 @@ import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Part
 import retrofit2.http.Path
+import retrofit2.http.Query
 import java.util.concurrent.TimeUnit
 
 interface MyCashApiService {
@@ -68,6 +72,35 @@ interface MyCashApiService {
         @Path("id") id: String
     ): UserResponse
 
+    @POST("outlet")
+    suspend fun addOutlet(
+        @Body request: OutletRequest
+    ): OutletResponse
+
+    @Multipart
+    @PUT("outlet/{id}")
+    suspend fun updateOutlet(
+        @Path("id") id: String,
+        @Part("name") name: RequestBody,
+        @Part("type") type: RequestBody,
+        @Part("phoneNumber") phoneNumber: RequestBody,
+        @Part("address") address: RequestBody,
+        @Part("district") district: RequestBody,
+        @Part("city") city: RequestBody,
+        @Part("province") province: RequestBody,
+        @Part image: MultipartBody.Part?
+    ): OutletResponse
+
+    @GET("outlet/{id}")
+    suspend fun outletById(
+        @Path("id") id: String
+    ): OutletResponse
+
+    @GET("outlet/user")
+    suspend fun outletsByUser(
+        @Query("name") search: String? = null
+    ): OutletsResponse
+
     companion object {
         @JvmStatic
         operator fun invoke(
@@ -75,8 +108,8 @@ interface MyCashApiService {
             userPref: UserPreferenceDataSource
         ): MyCashApiService {
             val okHttpClient = OkHttpClient.Builder()
-                .addInterceptor(chucker)
                 .addInterceptor(AuthInterceptor(userPref))
+                .addInterceptor(chucker)
                 .connectTimeout(120, TimeUnit.SECONDS)
                 .readTimeout(120, TimeUnit.SECONDS)
                 .build()

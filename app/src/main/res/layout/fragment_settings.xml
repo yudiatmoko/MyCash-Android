@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.settings.SettingsFragment">
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingHorizontal="22dp"
+            android:paddingVertical="12dp">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_profile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                app:cardCornerRadius="12dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/profile_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/cv_background"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="12dp">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/iv_outlet_logo"
+                        android:layout_width="64dp"
+                        android:layout_height="64dp"
+                        android:src="@drawable/img_placeholder_profile"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/tv_outlet_type"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Full" />
+
+                    <TextView
+                        android:id="@+id/tv_outlet_name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/nunito_sans_bold"
+                        android:maxLines="2"
+                        android:text="@string/outlet_name"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toTopOf="@id/tv_outlet_type"
+                        app:layout_constraintEnd_toStartOf="@id/btn_more"
+                        app:layout_constraintStart_toEndOf="@+id/iv_outlet_logo"
+                        app:layout_constraintTop_toTopOf="@id/iv_outlet_logo" />
+
+                    <TextView
+                        android:id="@+id/tv_outlet_type"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/nunito_sans_medium"
+                        android:maxLines="1"
+                        android:text="@string/outlet_type"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="@id/iv_outlet_logo"
+                        app:layout_constraintEnd_toStartOf="@id/btn_more"
+                        app:layout_constraintStart_toEndOf="@+id/iv_outlet_logo"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_outlet_name" />
+
+                    <ImageButton
+                        android:id="@+id/btn_more"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/round_keyboard_arrow_right_24"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/tv_outlet_name"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="@color/white" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <include
+                android:id="@+id/account_setting"
+                layout="@layout/layout_setting_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="6dp" />/>
+
+            <include
+                android:id="@+id/outlet_setting"
+                layout="@layout/layout_setting_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="6dp" />
+
+            <include
+                android:id="@+id/printer_setting"
+                layout="@layout/layout_setting_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="6dp" />
+
+            <include
+                android:id="@+id/bill_setting"
+                layout="@layout/layout_setting_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="6dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <Button
+                    android:id="@+id/btn_outlet_list"
+                    style="@style/RoundedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="6dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/nunito_sans_bold"
+                    android:text="@string/outlet_list"
+                    android:textAllCaps="false"
+                    android:textSize="14sp"
+                    app:icon="@drawable/round_list_alt_24" />
+
+                <Button
+                    android:id="@+id/btn_logout"
+                    style="@style/RoundedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="6dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/md_light_errorContainer"
+                    android:fontFamily="@font/nunito_sans_bold"
+                    android:text="@string/logout"
+                    android:textAllCaps="false"
+                    android:textColor="@color/md_light_error"
+                    android:textSize="14sp"
+                    app:icon="@drawable/round_logout_24"
+                    app:iconGravity="start"
+                    app:iconTint="@color/md_light_error" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <include
+        android:id="@+id/state_layout"
+        layout="@layout/state"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+</FrameLayout>

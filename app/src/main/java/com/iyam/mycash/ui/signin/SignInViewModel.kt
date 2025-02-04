@@ -13,7 +13,9 @@ import kotlinx.coroutines.launch
 class SignInViewModel(
     private val repo: AuthRepository
 ) : ViewModel() {
+
     private val _loginResult = MutableLiveData<ResultWrapper<Auth>>()
+
     val loginResult: LiveData<ResultWrapper<Auth>>
         get() = _loginResult
 

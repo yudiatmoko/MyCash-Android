@@ -1,5 +1,8 @@
 package com.iyam.mycash.data.network.api.datasource
 
+import com.iyam.mycash.data.network.api.model.outlet.OutletRequest
+import com.iyam.mycash.data.network.api.model.outlet.OutletResponse
+import com.iyam.mycash.data.network.api.model.outlet.OutletsResponse
 import com.iyam.mycash.data.network.api.model.user.UserResponse
 import com.iyam.mycash.data.network.api.model.user.login.LoginRequest
 import com.iyam.mycash.data.network.api.model.user.login.LoginResponse
@@ -24,6 +27,8 @@ interface ApiDataSource {
     suspend fun generateOtp(request: GenerateOtpRequest): GenerateOtpResponse
     suspend fun verifyOtp(request: VerifyOtpRequest): VerifyOtpResponse
     suspend fun resetPassword(request: ResetPasswordRequest): ResetPasswordResponse
+    suspend fun passwordUpdate(id: String, request: PasswordUpdateRequest): PasswordUpdateResponse
+    suspend fun userById(id: String): UserResponse
     suspend fun userUpdate(
         id: String,
         name: RequestBody?,
@@ -31,8 +36,20 @@ interface ApiDataSource {
         image: MultipartBody.Part?
     ): UserUpdateResponse
 
-    suspend fun passwordUpdate(id: String, request: PasswordUpdateRequest): PasswordUpdateResponse
-    suspend fun userById(id: String): UserResponse
+    suspend fun outletById(id: String): OutletResponse
+    suspend fun outletsByUser(name: String?): OutletsResponse
+    suspend fun addOutlet(request: OutletRequest): OutletResponse
+    suspend fun updateOutlet(
+        id: String,
+        name: RequestBody,
+        type: RequestBody,
+        phoneNumber: RequestBody,
+        address: RequestBody,
+        district: RequestBody,
+        city: RequestBody,
+        province: RequestBody,
+        image: MultipartBody.Part?
+    ): OutletResponse
 }
 
 class ApiDataSourceImpl(
@@ -58,15 +75,6 @@ class ApiDataSourceImpl(
         return service.resetPassword(request)
     }
 
-    override suspend fun userUpdate(
-        id: String,
-        name: RequestBody?,
-        phoneNumber: RequestBody?,
-        image: MultipartBody.Part?
-    ): UserUpdateResponse {
-        return service.userUpdate(id, name, phoneNumber, image)
-    }
-
     override suspend fun passwordUpdate(
         id: String,
         request: PasswordUpdateRequest
@@ -76,5 +84,50 @@ class ApiDataSourceImpl(
 
     override suspend fun userById(id: String): UserResponse {
         return service.userById(id)
+    }
+
+    override suspend fun userUpdate(
+        id: String,
+        name: RequestBody?,
+        phoneNumber: RequestBody?,
+        image: MultipartBody.Part?
+    ): UserUpdateResponse {
+        return service.userUpdate(id, name, phoneNumber, image)
+    }
+
+    override suspend fun outletById(id: String): OutletResponse {
+        return service.outletById(id)
+    }
+
+    override suspend fun outletsByUser(name: String?): OutletsResponse {
+        return service.outletsByUser(name)
+    }
+
+    override suspend fun addOutlet(request: OutletRequest): OutletResponse {
+        return service.addOutlet(request)
+    }
+
+    override suspend fun updateOutlet(
+        id: String,
+        name: RequestBody,
+        type: RequestBody,
+        phoneNumber: RequestBody,
+        address: RequestBody,
+        district: RequestBody,
+        city: RequestBody,
+        province: RequestBody,
+        image: MultipartBody.Part?
+    ): OutletResponse {
+        return service.updateOutlet(
+            id,
+            name,
+            type,
+            phoneNumber,
+            address,
+            district,
+            city,
+            province,
+            image
+        )
     }
 }

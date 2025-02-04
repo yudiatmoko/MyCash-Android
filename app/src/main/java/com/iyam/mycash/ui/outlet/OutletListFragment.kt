@@ -1,0 +1,184 @@
+package com.iyam.mycash.ui.outlet
+
+import android.content.Intent
+import android.os.Bundle
+import android.os.Handler
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.SearchView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import coil.load
+import com.iyam.mycash.R
+import com.iyam.mycash.databinding.FragmentOutletListBinding
+import com.iyam.mycash.ui.main.MainActivity
+import com.iyam.mycash.ui.main.MainViewModel
+import com.iyam.mycash.ui.profile.ProfileViewModel
+import com.iyam.mycash.utils.ApiException
+import com.iyam.mycash.utils.proceedWhen
+import org.koin.androidx.viewmodel.ext.android.viewModel
+
+class OutletListFragment : Fragment() {
+
+    private lateinit var binding: FragmentOutletListBinding
+    private val outletViewModel: OutletViewModel by viewModel()
+    private val profileViewModel: ProfileViewModel by viewModel()
+    private val mainViewModel: MainViewModel by viewModel()
+    private val outletAdapter: OutletAdapter by lazy {
+        OutletAdapter { outlet ->
+            mainViewModel.setOutlet(outlet)
+            navigateToMain()
+        }
+    }
+
+    private fun navigateToMain() {
+        val intent = Intent(requireActivity(), MainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+        requireActivity().finish()
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentOutletListBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        requireActivity().title = getString(R.string.outlet_list)
+        (requireActivity() as AppCompatActivity).supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(false)
+        }
+        setOutletsRv()
+        observeUserLoggedId()
+        observeOutlets()
+        setOnClickListener()
+        setSearchView()
+        binding.swipeRefresh.setOnRefreshListener {
+            setSearchView()
+            observeUserLoggedId()
+            observeOutlets()
+            binding.swipeRefresh.isRefreshing = false
+        }
+    }
+
+    private fun setSearchView() {
+        binding.svOutlet.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                outletViewModel.getOutletsByUser(query)
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                if (newText.isNullOrEmpty()) {
+                    outletViewModel.getOutletsByUser(newText)
+                }
+                return false
+            }
+        })
+    }
+
+    private fun setOnClickListener() {
+        binding.btn.setOnClickListener {
+            navigateToAddOutlet()
+        }
+    }
+
+    private fun navigateToAddOutlet() {
+        val action = OutletListFragmentDirections.actionOutletListFragmentToAddOutletFragment()
+        findNavController().navigate(action)
+    }
+
+    private fun setOutletsRv() {
+        binding.rvOutlet.apply {
+            adapter = outletAdapter
+            layoutManager = LinearLayoutManager(requireContext())
+        }
+    }
+
+    private fun observeOutlets(name: String? = null) {
+        outletViewModel.getOutletsByUser(name)
+        outletViewModel.outlets.observe(viewLifecycleOwner) {
+            it.proceedWhen(
+                doOnSuccess = {
+                    binding.mainLayout.isVisible = true
+                    binding.stateLayout.root.isVisible = false
+                    binding.stateLayout.animLoading.isVisible = false
+                    binding.stateLayout.llAnimError.isVisible = false
+                    binding.stateLayout.tvError.isVisible = false
+                    it.payload?.let { outlets -> outletAdapter.setData(outlets) }
+                },
+                doOnLoading = {
+                    binding.mainLayout.isVisible = false
+                    binding.stateLayout.root.isVisible = true
+                    binding.stateLayout.animLoading.isVisible = true
+                    binding.stateLayout.llAnimError.isVisible = false
+                    binding.stateLayout.tvError.isVisible = false
+                },
+                doOnError = {
+                    val errorMessage = (it.exception as? ApiException)?.getParsedError()?.message
+                        ?: getString(R.string.an_error_occurred)
+                    Handler().postDelayed({
+                        binding.svOutlet.setQuery(null, false)
+                    }, 3000)
+                    binding.mainLayout.isVisible = false
+                    binding.stateLayout.root.isVisible = true
+                    binding.stateLayout.animLoading.isVisible = false
+                    binding.stateLayout.llAnimError.isVisible = true
+                    binding.stateLayout.tvError.isVisible = true
+                    binding.stateLayout.tvError.text = errorMessage
+                }
+            )
+        }
+    }
+
+    private fun observeUserLoggedId() {
+        mainViewModel.authLiveData.observe(viewLifecycleOwner) { authData ->
+            authData?.id?.let { profileViewModel.getUserById(it) }
+        }
+
+        profileViewModel.getUserResult.observe(viewLifecycleOwner) { result ->
+            result.proceedWhen(
+                doOnSuccess = {
+                    binding.mainLayout.isVisible = true
+                    binding.stateLayout.root.isVisible = false
+                    binding.stateLayout.animLoading.isVisible = false
+                    binding.stateLayout.llAnimError.isVisible = false
+                    binding.stateLayout.tvError.isVisible = false
+                    val user = it.payload
+                    binding.tvUserName.text = user?.name
+                    if (user?.image.isNullOrBlank()) {
+                        binding.ivProfilePhoto.load(R.drawable.img_placeholder_profile)
+                    } else {
+                        binding.ivProfilePhoto.load(user?.image)
+                    }
+                },
+                doOnLoading = {
+                    binding.mainLayout.isVisible = false
+                    binding.stateLayout.root.isVisible = true
+                    binding.stateLayout.animLoading.isVisible = true
+                    binding.stateLayout.llAnimError.isVisible = false
+                    binding.stateLayout.tvError.isVisible = false
+                },
+                doOnError = {
+                    val errorMessage = (it.exception as? ApiException)?.getParsedError()?.message
+                        ?: getString(R.string.an_error_occurred)
+                    binding.mainLayout.isVisible = false
+                    binding.stateLayout.root.isVisible = true
+                    binding.stateLayout.animLoading.isVisible = false
+                    binding.stateLayout.llAnimError.isVisible = true
+                    binding.stateLayout.tvError.isVisible = true
+                    binding.stateLayout.tvError.text = errorMessage
+                }
+            )
+        }
+    }
+}
