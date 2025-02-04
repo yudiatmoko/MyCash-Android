@@ -16,6 +16,9 @@
         android:theme="@style/Theme.MyCash"
         tools:targetApi="31">
         <activity
+            android:name=".ui.outlet.OutletActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.signin.SignInActivity"
             android:exported="false"
             android:theme="@style/Theme.MyCash.NoActionBar" />
@@ -23,9 +26,6 @@
             android:name=".ui.resetpassword.ResetPasswordActivity"
             android:exported="false"
             android:theme="@style/Theme.MyCash.NoActionBar" />
-        <activity
-            android:name=".ui.home.HomeActivity"
-            android:exported="false" />
         <activity
             android:name=".ui.signup.SignUpActivity"
             android:exported="false"

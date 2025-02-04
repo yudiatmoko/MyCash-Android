@@ -108,7 +108,7 @@ class OtpConfirmFragment : Fragment() {
                         it.payload.orEmpty(),
                         Toast.LENGTH_SHORT
                     ).show()
-                    args.auth?.token?.let { token -> mainViewModel.setUserToken(token) }
+                    args.authToOtp?.token?.let { token -> mainViewModel.setUserToken(token) }
                     navigateToMain()
                 },
                 doOnLoading = {

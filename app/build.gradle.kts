@@ -123,4 +123,6 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
     // splashscreen
     implementation(libs.androidx.core.splashscreen)
+    // swipe-to-refresh
+    implementation(libs.androidx.swiperefreshlayout)
 }

@@ -13,8 +13,8 @@ import com.google.android.material.textfield.TextInputLayout
 import com.iyam.mycash.R
 import com.iyam.mycash.data.network.api.model.user.login.LoginRequest
 import com.iyam.mycash.databinding.ActivitySignInBinding
-import com.iyam.mycash.ui.main.MainActivity
 import com.iyam.mycash.ui.main.MainViewModel
+import com.iyam.mycash.ui.outlet.OutletActivity
 import com.iyam.mycash.ui.resetpassword.ResetPasswordActivity
 import com.iyam.mycash.ui.signup.SignUpActivity
 import com.iyam.mycash.utils.ApiException
@@ -54,7 +54,7 @@ class SignInActivity : AppCompatActivity() {
                     binding.loading.isVisible = false
                     binding.btn.isVisible = true
                     binding.btn.isEnabled = false
-                    it.payload?.let { navigateToMain() }
+                    it.payload?.let { navigateToOutlet() }
                     it.payload?.let { data -> mainViewModel.setUserToken(data.token.orEmpty()) }
                     it.payload?.let { data -> mainViewModel.setAuth(data) }
                 },
@@ -75,8 +75,8 @@ class SignInActivity : AppCompatActivity() {
         }
     }
 
-    private fun navigateToMain() {
-        val intent = Intent(this, MainActivity::class.java)
+    private fun navigateToOutlet() {
+        val intent = Intent(this, OutletActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
         finish()
