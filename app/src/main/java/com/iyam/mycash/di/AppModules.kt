@@ -14,8 +14,8 @@ import com.iyam.mycash.data.repository.OutletRepository
 import com.iyam.mycash.data.repository.OutletRepositoryImpl
 import com.iyam.mycash.ui.main.MainViewModel
 import com.iyam.mycash.ui.outlet.OutletViewModel
-import com.iyam.mycash.ui.profile.ProfileViewModel
 import com.iyam.mycash.ui.resetpassword.ResetPasswordViewModel
+import com.iyam.mycash.ui.settings.SettingsViewModel
 import com.iyam.mycash.ui.signin.SignInViewModel
 import com.iyam.mycash.ui.signup.SignUpViewModel
 import com.iyam.mycash.utils.PreferenceDataStoreHelper
@@ -57,7 +57,7 @@ object AppModules {
         viewModelOf(::SignInViewModel)
         viewModelOf(::ResetPasswordViewModel)
         viewModelOf(::OutletViewModel)
-        viewModelOf(::ProfileViewModel)
+        viewModelOf(::SettingsViewModel)
 //        viewModelOf(::MyProfileViewModel)
 //        viewModelOf(::HistoryViewModel)
 //        viewModelOf(::AccountViewModel)

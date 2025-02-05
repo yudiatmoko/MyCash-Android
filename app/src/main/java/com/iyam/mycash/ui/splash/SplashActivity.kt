@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import com.iyam.mycash.ui.main.MainActivity
 import com.iyam.mycash.ui.main.MainViewModel
 import com.iyam.mycash.ui.outlet.OutletActivity
 import com.iyam.mycash.ui.signin.SignInActivity
@@ -21,14 +22,25 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun observeUserLoggedIn() {
-        mainViewModel.userTokenLiveData.observe(this) {
-            if (it.isNotEmpty()) {
-                navigateToOutlet()
-            } else {
-                navigateToLogin()
+        mainViewModel.userTokenLiveData.observe(this) { token ->
+            mainViewModel.outletLiveData.observe(this) { outlet ->
+                if (token.isNotEmpty() && outlet == null) {
+                    navigateToOutlet()
+                } else if (token.isNotEmpty() && outlet != null) {
+                    navigateToMain()
+                } else {
+                    navigateToLogin()
+                }
+                isTokenChecked = true
             }
-            isTokenChecked = true
         }
+    }
+
+    private fun navigateToMain() {
+        val intent = Intent(this, MainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+        finish()
     }
 
     private fun navigateToLogin() {

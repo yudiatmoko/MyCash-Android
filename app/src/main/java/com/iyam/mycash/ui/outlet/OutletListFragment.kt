@@ -17,7 +17,7 @@ import com.iyam.mycash.R
 import com.iyam.mycash.databinding.FragmentOutletListBinding
 import com.iyam.mycash.ui.main.MainActivity
 import com.iyam.mycash.ui.main.MainViewModel
-import com.iyam.mycash.ui.profile.ProfileViewModel
+import com.iyam.mycash.ui.settings.SettingsViewModel
 import com.iyam.mycash.utils.ApiException
 import com.iyam.mycash.utils.proceedWhen
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -26,7 +26,7 @@ class OutletListFragment : Fragment() {
 
     private lateinit var binding: FragmentOutletListBinding
     private val outletViewModel: OutletViewModel by viewModel()
-    private val profileViewModel: ProfileViewModel by viewModel()
+    private val settingsViewModel: SettingsViewModel by viewModel()
     private val mainViewModel: MainViewModel by viewModel()
     private val outletAdapter: OutletAdapter by lazy {
         OutletAdapter { outlet ->
@@ -57,16 +57,18 @@ class OutletListFragment : Fragment() {
         (requireActivity() as AppCompatActivity).supportActionBar?.apply {
             setDisplayHomeAsUpEnabled(false)
         }
+        observeAllData()
         setOutletsRv()
-        observeUserLoggedId()
-        observeOutlets()
-        setOnClickListener()
         setSearchView()
+        setOnClickListener()
+        setOnRefreshListener()
+    }
+
+    private fun setOnRefreshListener() {
         binding.swipeRefresh.setOnRefreshListener {
-            setSearchView()
-            observeUserLoggedId()
-            observeOutlets()
-            binding.swipeRefresh.isRefreshing = false
+            binding.svOutlet.setQuery(null, false)
+            binding.svOutlet.clearFocus()
+            observeAllData()
         }
     }
 
@@ -104,61 +106,53 @@ class OutletListFragment : Fragment() {
         }
     }
 
-    private fun observeOutlets(name: String? = null) {
-        outletViewModel.getOutletsByUser(name)
-        outletViewModel.outlets.observe(viewLifecycleOwner) {
-            it.proceedWhen(
-                doOnSuccess = {
-                    binding.mainLayout.isVisible = true
-                    binding.stateLayout.root.isVisible = false
-                    binding.stateLayout.animLoading.isVisible = false
-                    binding.stateLayout.llAnimError.isVisible = false
-                    binding.stateLayout.tvError.isVisible = false
-                    it.payload?.let { outlets -> outletAdapter.setData(outlets) }
-                },
-                doOnLoading = {
-                    binding.mainLayout.isVisible = false
-                    binding.stateLayout.root.isVisible = true
-                    binding.stateLayout.animLoading.isVisible = true
-                    binding.stateLayout.llAnimError.isVisible = false
-                    binding.stateLayout.tvError.isVisible = false
-                },
-                doOnError = {
-                    val errorMessage = (it.exception as? ApiException)?.getParsedError()?.message
-                        ?: getString(R.string.an_error_occurred)
-                    Handler().postDelayed({
-                        binding.svOutlet.setQuery(null, false)
-                    }, 3000)
-                    binding.mainLayout.isVisible = false
-                    binding.stateLayout.root.isVisible = true
-                    binding.stateLayout.animLoading.isVisible = false
-                    binding.stateLayout.llAnimError.isVisible = true
-                    binding.stateLayout.tvError.isVisible = true
-                    binding.stateLayout.tvError.text = errorMessage
-                }
-            )
-        }
-    }
-
-    private fun observeUserLoggedId() {
+    private fun observeAllData(name: String? = null) {
         mainViewModel.authLiveData.observe(viewLifecycleOwner) { authData ->
-            authData?.id?.let { profileViewModel.getUserById(it) }
+            authData?.id?.let { settingsViewModel.getUserById(it) }
         }
+        outletViewModel.getOutletsByUser(name)
 
-        profileViewModel.getUserResult.observe(viewLifecycleOwner) { result ->
-            result.proceedWhen(
+        settingsViewModel.getUserResult.observe(viewLifecycleOwner) { user ->
+            user.proceedWhen(
                 doOnSuccess = {
-                    binding.mainLayout.isVisible = true
-                    binding.stateLayout.root.isVisible = false
-                    binding.stateLayout.animLoading.isVisible = false
-                    binding.stateLayout.llAnimError.isVisible = false
-                    binding.stateLayout.tvError.isVisible = false
-                    val user = it.payload
-                    binding.tvUserName.text = user?.name
-                    if (user?.image.isNullOrBlank()) {
-                        binding.ivProfilePhoto.load(R.drawable.img_placeholder_profile)
-                    } else {
-                        binding.ivProfilePhoto.load(user?.image)
+                    outletViewModel.outlets.observe(viewLifecycleOwner) { outlets ->
+                        binding.swipeRefresh.isRefreshing = false
+                        outlets.proceedWhen(
+                            doOnSuccess = {
+                                user.payload.let { user ->
+                                    binding.tvUserName.text = user?.name
+                                    if (user?.image.isNullOrBlank()) {
+                                        binding.ivProfilePhoto.load(R.drawable.img_placeholder_profile)
+                                    } else {
+                                        binding.ivProfilePhoto.load(user?.image)
+                                    }
+                                }
+                                outlets.payload?.let { outlets ->
+                                    outletAdapter.setData(outlets)
+                                }
+                                binding.mainLayout.isVisible = true
+                                binding.stateLayout.root.isVisible = false
+                                binding.stateLayout.animLoading.isVisible = false
+                                binding.stateLayout.llAnimError.isVisible = false
+                                binding.stateLayout.tvError.isVisible = false
+                            },
+                            doOnError = {
+                                val errorMessage =
+                                    (it.exception as? ApiException)?.getParsedError()?.message
+                                        ?: getString(R.string.an_error_occurred)
+                                Handler().postDelayed({
+                                    binding.svOutlet.setQuery(null, false)
+                                }, 3000)
+                                binding.mainLayout.isVisible = true
+                                binding.btn.isVisible = true
+                                binding.svOutlet.isVisible = false
+                                binding.stateLayout.root.isVisible = true
+                                binding.stateLayout.animLoading.isVisible = false
+                                binding.stateLayout.llAnimError.isVisible = true
+                                binding.stateLayout.tvError.isVisible = true
+                                binding.stateLayout.tvError.text = errorMessage
+                            }
+                        )
                     }
                 },
                 doOnLoading = {

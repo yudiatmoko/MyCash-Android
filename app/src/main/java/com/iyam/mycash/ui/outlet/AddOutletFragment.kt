@@ -37,6 +37,7 @@ class AddOutletFragment : Fragment() {
         requireActivity().title = getString(R.string.add_outlet)
         (requireActivity() as AppCompatActivity).supportActionBar?.apply {
             setDisplayHomeAsUpEnabled(true)
+            setHomeAsUpIndicator(R.drawable.round_arrow_back_ios_24)
         }
     }
 
@@ -183,7 +184,11 @@ class AddOutletFragment : Fragment() {
                     binding.formLayout.etOutletProvince.text?.clear()
                     binding.formLayout.btn.isVisible = true
                     binding.formLayout.loading.isVisible = false
-                    Toast.makeText(requireActivity(), "Outlet added successfully", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        requireActivity(),
+                        "Outlet added successfully",
+                        Toast.LENGTH_SHORT
+                    ).show()
                     navigateToOutletList()
                 },
                 doOnLoading = {

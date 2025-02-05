@@ -25,8 +25,10 @@ class MainViewModel(
         return dataSource.getUserToken()
     }
 
-    suspend fun removeUserToken() {
-        return dataSource.removeUserToken()
+    fun removeUserToken() {
+        viewModelScope.launch(Dispatchers.IO) {
+            dataSource.removeUserToken()
+        }
     }
 
     val authLiveData = dataSource.getAuthFlow().asLiveData(Dispatchers.IO)
@@ -41,8 +43,10 @@ class MainViewModel(
         return dataSource.getAuth()
     }
 
-    suspend fun removeAuth() {
-        return dataSource.removeAuth()
+    fun removeAuth() {
+        viewModelScope.launch(Dispatchers.IO) {
+            dataSource.removeAuth()
+        }
     }
 
     val outletLiveData = dataSource.getOutletFlow().asLiveData(Dispatchers.IO)
@@ -57,7 +61,9 @@ class MainViewModel(
         return dataSource.getOutlet()
     }
 
-    suspend fun removeOutlet() {
-        return dataSource.removeOutlet()
+    fun removeOutlet() {
+        viewModelScope.launch(Dispatchers.IO) {
+            dataSource.removeOutlet()
+        }
     }
 }

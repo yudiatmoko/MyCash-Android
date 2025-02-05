@@ -14,8 +14,8 @@ import com.iyam.mycash.R
 import com.iyam.mycash.data.network.api.model.user.otp.GenerateOtpRequest
 import com.iyam.mycash.data.network.api.model.user.otp.VerifyOtpRequest
 import com.iyam.mycash.databinding.FragmentOtpConfirmBinding
-import com.iyam.mycash.ui.main.MainActivity
 import com.iyam.mycash.ui.main.MainViewModel
+import com.iyam.mycash.ui.outlet.OutletActivity
 import com.iyam.mycash.utils.ApiException
 import com.iyam.mycash.utils.proceedWhen
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -109,7 +109,7 @@ class OtpConfirmFragment : Fragment() {
                         Toast.LENGTH_SHORT
                     ).show()
                     args.authToOtp?.token?.let { token -> mainViewModel.setUserToken(token) }
-                    navigateToMain()
+                    navigateToOutlet()
                 },
                 doOnLoading = {
                     binding.loading.isVisible = true
@@ -130,8 +130,8 @@ class OtpConfirmFragment : Fragment() {
         }
     }
 
-    private fun navigateToMain() {
-        val intent = Intent(requireContext(), MainActivity::class.java)
+    private fun navigateToOutlet() {
+        val intent = Intent(requireContext(), OutletActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
         requireActivity().finish()
