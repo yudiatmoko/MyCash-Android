@@ -47,7 +47,7 @@
     <string name="text_password_does_not_match">Kata sandi tidak sama\n</string>
     <string name="text_error_otp_cannot_empty">OTP tidak boleh kosong</string>
     <string name="text_error_otp_less_than_6_char">Kode OTP harus 6 karakter</string>
-    <string name="an_error_occurred">Terjadi kesalahan</string>
+    <string name="an_error_occurred">An Error Occurred</string>
     <string name="add_outlet">Tambah Toko</string>
     <string name="add_photo">Unggah Foto</string>
     <string name="outlet_name">Nama Toko</string>
@@ -58,7 +58,7 @@
     <string name="outlet_phone_number">Nomor Telepon Toko</string>
     <string name="outlet_phone_number_example">Cth: 081212341234</string>
     <string name="outlet_address">Alamat Toko</string>
-    <string name="outlet_address_example">Cth: Jl. Perintis Kemerdekaan, No.5</string>
+    <string name="outlet_address_example">Cth: Jl. Perintis Kemerdekaan, Ds. Karangbahagia</string>
     <string name="outlet_district">Kecamatan</string>
     <string name="outlet_district_example">Cth: Cikarang Utara</string>
     <string name="outlet_city">Kota/Kabupaten</string>
@@ -66,7 +66,6 @@
     <string name="outlet_province">Provinsi</string>
     <string name="outlet_province_example">Cth: Jawa Barat</string>
     <string name="save">Simpan</string>
-    <string name="placeholder_user_image">https://res.cloudinary.com/do5lvbwfi/image/upload/v1738514787/public/ayecascoxedtvaxmuhpr.jpg</string>
     <string name="outlet_list">Daftar Toko</string>
     <string name="text_error_outlet_name_cannot_empty">Nama toko tidak boleh kosong</string>
     <string name="text_error_outlet_type_cannot_empty">Bidang usaha tidak boleh kosong</string>
@@ -79,4 +78,20 @@
     <string name="point_of_sale">POS</string>
     <string name="setting">Pengaturan</string>
     <string name="logout">Keluar Akun</string>
+    <string name="update">Ubah</string>
+    <string name="outlet_information">Informasi Toko</string>
+    <string name="user_information">Informasi Pengguna</string>
+    <string name="user_phone_number">Nomor Telepon</string>
+    <string name="unknown">Tidak diketahui</string>
+    <string name="detail">Detail Pengguna</string>
+    <string name="account_management">Kelola Akun</string>
+    <string name="account_management_desc">Atur informasi pribadi Anda</string>
+    <string name="outlet_management">Kelola Toko</string>
+    <string name="outlet_management_desc">Atur informasi toko Anda</string>
+    <string name="printer_management">Mesin Cetak</string>
+    <string name="printer_management_desc">Hubungkan printer untuk mencetak nota transaksi</string>
+    <string name="receipt_management">Nota Transaksi</string>
+    <string name="receipt_management_desc">Pratinjau nota transaksi Anda</string>
+    <string name="phone_number">Nomor Telepon</string>
+    <string name="text_error_phone_cannot_empty">Nomor telepon tidak boleh kosong</string>
 </resources>

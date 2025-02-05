@@ -29,10 +29,27 @@ class MainActivity : AppCompatActivity() {
             insets
         }
         setBottomNavigation()
+        navigateToSettings()
+    }
+
+    private fun navigateToSettings() {
+        intent.getStringExtra(EXTRA_DESTINATION)?.let { destination ->
+            if (destination == DEST_SETTINGS) {
+                val navHostFragment =
+                    supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+                val navController = navHostFragment.navController
+                navController.navigate(R.id.settingsFragment)
+            }
+        }
     }
 
     private fun setBottomNavigation() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         binding.bottomNavigationView.setupWithNavController(navHostFragment.navController)
+    }
+
+    companion object {
+        const val EXTRA_DESTINATION = "EXTRA_DESTINATION"
+        const val DEST_SETTINGS = "DEST_SETTINGS"
     }
 }

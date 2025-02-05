@@ -1,0 +1,459 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingVertical="12dp"
+    tools:context=".ui.settings.detail.DetailActivity">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/iv_profile_photo"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="12dp"
+        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Full"
+        tools:src="@tools:sample/avatars" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="22dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="4">
+
+        <TextView
+            android:id="@+id/tv_user_information"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:layout_weight="3"
+            android:ellipsize="end"
+            android:fontFamily="@font/nunito_sans_bold"
+            android:maxLines="1"
+            android:text="@string/user_information"
+            android:textAlignment="textStart"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tv_update_user"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:fontFamily="@font/nunito_sans_bold"
+            android:maxLines="1"
+            android:text="@string/update"
+            android:textAlignment="textEnd"
+            android:textColor="@color/md_dark_primary"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="22dp"
+        android:layout_marginTop="12dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="4">
+
+        <TextView
+            android:id="@+id/tv_user_name_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:ellipsize="end"
+            android:fontFamily="@font/nunito_sans_bold"
+            android:maxLines="1"
+            android:text="@string/username"
+            android:textAlignment="textStart"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_user_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:ellipsize="end"
+            android:fontFamily="@font/nunito_sans_medium"
+            android:maxLines="1"
+            android:textAlignment="textEnd"
+            android:textSize="16sp"
+            tools:text="@string/username" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="22dp"
+        android:layout_marginTop="12dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="4">
+
+        <TextView
+            android:id="@+id/tv_user_email_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:fontFamily="@font/nunito_sans_bold"
+            android:maxLines="1"
+            android:text="@string/email"
+            android:textAlignment="textStart"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_user_email"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:ellipsize="end"
+            android:fontFamily="@font/nunito_sans_medium"
+            android:maxLines="1"
+            android:textAlignment="textEnd"
+            android:textSize="16sp"
+            tools:text="@string/email" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="22dp"
+        android:layout_marginTop="12dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="4">
+
+        <TextView
+            android:id="@+id/tv_user_phone_number_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:ellipsize="end"
+            android:fontFamily="@font/nunito_sans_bold"
+            android:maxLines="1"
+            android:text="@string/user_phone_number"
+            android:textAlignment="textStart"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_user_phone_number"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:ellipsize="end"
+            android:fontFamily="@font/nunito_sans_medium"
+            android:maxLines="1"
+            android:textAlignment="textEnd"
+            android:textSize="16sp"
+            tools:text="@string/user_phone_number" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_marginVertical="28dp"
+        android:background="?android:attr/textColorPrimaryInverse" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/iv_outlet_logo"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_gravity="center"
+        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Full"
+        tools:src="@tools:sample/avatars" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="22dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="4">
+
+        <TextView
+            android:id="@+id/tv_outlet_information"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:layout_weight="3"
+            android:ellipsize="end"
+            android:fontFamily="@font/nunito_sans_bold"
+            android:maxLines="1"
+            android:text="@string/outlet_information"
+            android:textAlignment="textStart"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tv_update_outlet"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:fontFamily="@font/nunito_sans_bold"
+            android:maxLines="1"
+            android:text="@string/update"
+            android:textAlignment="textEnd"
+            android:textColor="@color/md_dark_primary"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="22dp"
+        android:layout_marginTop="12dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="4">
+
+        <TextView
+            android:id="@+id/tv_outlet_name_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:fontFamily="@font/nunito_sans_bold"
+            android:maxLines="1"
+            android:text="@string/outlet_name"
+            android:textAlignment="textStart"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_outlet_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:ellipsize="end"
+            android:fontFamily="@font/nunito_sans_medium"
+            android:maxLines="1"
+            android:textAlignment="textEnd"
+            android:textSize="16sp"
+            tools:text="@string/outlet_name" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="22dp"
+        android:layout_marginTop="12dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="4">
+
+        <TextView
+            android:id="@+id/tv_outlet_type_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:ellipsize="end"
+            android:fontFamily="@font/nunito_sans_bold"
+            android:maxLines="1"
+            android:text="@string/outlet_type"
+            android:textAlignment="textStart"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_outlet_type"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:ellipsize="end"
+            android:fontFamily="@font/nunito_sans_medium"
+            android:maxLines="1"
+            android:textAlignment="textEnd"
+            android:textSize="16sp"
+            tools:text="@string/outlet_type" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="22dp"
+        android:layout_marginTop="12dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="4">
+
+        <TextView
+            android:id="@+id/tv_outlet_phone_number_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:ellipsize="end"
+            android:fontFamily="@font/nunito_sans_bold"
+            android:maxLines="1"
+            android:text="@string/outlet_phone_number"
+            android:textAlignment="textStart"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_outlet_phone_number"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:ellipsize="end"
+            android:fontFamily="@font/nunito_sans_medium"
+            android:maxLines="1"
+            android:textAlignment="textEnd"
+            android:textSize="16sp"
+            tools:text="@string/outlet_phone_number" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="22dp"
+        android:layout_marginTop="12dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="4">
+
+        <TextView
+            android:id="@+id/tv_outlet_address_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:ellipsize="end"
+            android:fontFamily="@font/nunito_sans_bold"
+            android:maxLines="1"
+            android:text="@string/outlet_address"
+            android:textAlignment="textStart"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_outlet_address"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:ellipsize="end"
+            android:fontFamily="@font/nunito_sans_medium"
+            android:maxLines="2"
+            android:textAlignment="textEnd"
+            android:textSize="16sp"
+            tools:text="@string/outlet_address" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="22dp"
+        android:layout_marginTop="12dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="4">
+
+        <TextView
+            android:id="@+id/tv_outlet_district_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:ellipsize="end"
+            android:fontFamily="@font/nunito_sans_bold"
+            android:maxLines="1"
+            android:text="@string/outlet_district"
+            android:textAlignment="textStart"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_outlet_district"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:ellipsize="end"
+            android:fontFamily="@font/nunito_sans_medium"
+            android:maxLines="1"
+            android:textAlignment="textEnd"
+            android:textSize="16sp"
+            tools:text="@string/outlet_district" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="22dp"
+        android:layout_marginTop="12dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="4">
+
+        <TextView
+            android:id="@+id/tv_outlet_city_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:ellipsize="end"
+            android:fontFamily="@font/nunito_sans_bold"
+            android:maxLines="1"
+            android:text="@string/outlet_city"
+            android:textAlignment="textStart"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_outlet_city"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:ellipsize="end"
+            android:fontFamily="@font/nunito_sans_medium"
+            android:maxLines="1"
+            android:textAlignment="textEnd"
+            android:textSize="16sp"
+            tools:text="@string/outlet_city" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="22dp"
+        android:layout_marginTop="12dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="4">
+
+        <TextView
+            android:id="@+id/tv_outlet_province_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:ellipsize="end"
+            android:fontFamily="@font/nunito_sans_bold"
+            android:maxLines="1"
+            android:text="@string/outlet_province"
+            android:textAlignment="textStart"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_outlet_province"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:ellipsize="end"
+            android:fontFamily="@font/nunito_sans_medium"
+            android:maxLines="2"
+            android:textAlignment="textEnd"
+            android:textSize="16sp"
+            tools:text="@string/outlet_province" />
+
+    </LinearLayout>
+
+</LinearLayout>
