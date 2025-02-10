@@ -68,11 +68,25 @@
         <item name="boxStrokeColor">@color/til_stroke_color</item>
     </style>
 
-    <style name="RoundedButton" parent="Widget.MaterialComponents.Button">
+    <style name="RoundedDropdown" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
         <item name="shapeAppearanceOverlay">
             @style/ShapeAppearanceOverlay.MyApp.TextInputLayout.Rounded
         </item>
         <item name="boxStrokeColor">@color/til_stroke_color</item>
+    </style>
+
+    <style name="RoundedButton" parent="Widget.MaterialComponents.Button">
+        <item name="shapeAppearanceOverlay">
+            @style/ShapeAppearanceOverlay.MyApp.TextInputLayout.Rounded
+        </item>
+        <item name="strokeColor">@color/til_stroke_color</item>
+    </style>
+
+    <style name="OutlinedRoundedButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="shapeAppearanceOverlay">
+            @style/ShapeAppearanceOverlay.MyApp.TextInputLayout.Rounded
+        </item>
+        <item name="strokeColor">@color/til_stroke_color</item>
     </style>
 
     <style name="ShapeAppearanceOverlay.MyApp.TextInputLayout.Rounded" parent="">

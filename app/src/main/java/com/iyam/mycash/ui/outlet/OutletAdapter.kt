@@ -66,7 +66,7 @@ class OutletAdapter(
 
         override fun bind(item: Outlet) {
             binding.tvOutletName.text = item.name
-            binding.root.setOnClickListener {
+            binding.tvOutletName.setOnClickListener {
                 onClicked.invoke(item)
             }
         }

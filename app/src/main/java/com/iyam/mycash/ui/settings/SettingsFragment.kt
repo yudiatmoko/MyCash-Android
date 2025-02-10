@@ -82,7 +82,7 @@ class SettingsFragment : Fragment() {
                                     binding.tvOutletName.text = it.name
                                     binding.tvOutletType.text = it.type
                                     if (it.image.isNullOrBlank()) {
-                                        binding.ivOutletLogo.load(R.drawable.img_placeholder_profile)
+                                        binding.ivOutletLogo.load(R.drawable.img_placeholder_general)
                                     } else {
                                         binding.ivOutletLogo.load(it.image)
                                     }
@@ -161,15 +161,15 @@ class SettingsFragment : Fragment() {
             navigateToOutletList()
         }
 
-        binding.cvProfile.setOnClickListener {
+        binding.profileContent.setOnClickListener {
             navigateToDetail(userData, outletData)
         }
 
-        binding.accountSetting.root.setOnClickListener {
+        binding.accountSetting.mainLayout.setOnClickListener {
             navigateToUserUpdate()
         }
 
-        binding.outletSetting.root.setOnClickListener {
+        binding.outletSetting.mainLayout.setOnClickListener {
             navigateToOutletUpdate()
         }
     }

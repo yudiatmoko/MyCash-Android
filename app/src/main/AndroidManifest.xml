@@ -16,6 +16,18 @@
         android:theme="@style/Theme.MyCash"
         tools:targetApi="31" >
         <activity
+            android:name=".ui.manage.product.ProductUpdateActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.manage.product.ProductListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.manage.product.AddProductActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.manage.category.CategoryActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.settings.outlet.OutletDataUpdateActivity"
             android:exported="false" />
         <activity

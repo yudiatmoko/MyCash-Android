@@ -1,0 +1,1 @@
+package com.iyam.mycash.modelimport android.os.Parcelableimport androidx.annotation.Keepimport kotlinx.parcelize.Parcelize@Keep@Parcelizedata class Category(    val id: String?,    val name: String?,    val slug: String?,    val outletId: String?,    val createdAt: String?,    val updatedAt: String?) : Parcelable

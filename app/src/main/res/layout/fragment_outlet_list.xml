@@ -27,6 +27,8 @@
                 android:id="@+id/iv_profile_photo"
                 android:layout_width="96dp"
                 android:layout_height="96dp"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
                 app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Full"
                 tools:src="@tools:sample/avatars" />
 
@@ -51,7 +53,8 @@
                 android:text="@string/add_outlet"
                 android:textAllCaps="false"
                 android:textSize="14sp"
-                app:icon="@drawable/round_add_business_24" />
+                app:icon="@drawable/round_add_business_24"
+                app:iconGravity="textStart" />
 
             <SearchView
                 android:id="@+id/sv_outlet"
@@ -69,7 +72,7 @@
                 android:id="@+id/rv_outlet"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="18dp"
                 tools:listitem="@layout/layout_outlet_item" />
 
         </LinearLayout>

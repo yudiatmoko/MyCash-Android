@@ -22,7 +22,7 @@ class AuthInterceptor(
 
         val response = chain.proceed(request)
 
-        if (response.code == 401) {
+        if (response.code == 403) {
             runBlocking {
                 userPref.removeUserToken()
                 userPref.removeAuth()

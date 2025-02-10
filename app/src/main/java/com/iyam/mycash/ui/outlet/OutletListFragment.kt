@@ -2,7 +2,6 @@ package com.iyam.mycash.ui.outlet
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -66,8 +65,6 @@ class OutletListFragment : Fragment() {
 
     private fun setOnRefreshListener() {
         binding.swipeRefresh.setOnRefreshListener {
-            binding.svOutlet.setQuery(null, false)
-            binding.svOutlet.clearFocus()
             observeAllData()
         }
     }
@@ -107,10 +104,10 @@ class OutletListFragment : Fragment() {
     }
 
     private fun observeAllData(name: String? = null) {
+        outletViewModel.getOutletsByUser(name)
         mainViewModel.authLiveData.observe(viewLifecycleOwner) { authData ->
             authData?.id?.let { settingsViewModel.getUserById(it) }
         }
-        outletViewModel.getOutletsByUser(name)
 
         settingsViewModel.getUserResult.observe(viewLifecycleOwner) { user ->
             user.proceedWhen(
@@ -131,24 +128,30 @@ class OutletListFragment : Fragment() {
                                     outletAdapter.setData(outlets)
                                 }
                                 binding.mainLayout.isVisible = true
+                                binding.rvOutlet.isVisible = true
                                 binding.stateLayout.root.isVisible = false
                                 binding.stateLayout.animLoading.isVisible = false
                                 binding.stateLayout.llAnimError.isVisible = false
                                 binding.stateLayout.tvError.isVisible = false
                             },
                             doOnError = {
+                                user.payload.let { user ->
+                                    binding.tvUserName.text = user?.name
+                                    if (user?.image.isNullOrBlank()) {
+                                        binding.ivProfilePhoto.load(R.drawable.img_placeholder_profile)
+                                    } else {
+                                        binding.ivProfilePhoto.load(user?.image)
+                                    }
+                                }
                                 val errorMessage =
                                     (it.exception as? ApiException)?.getParsedError()?.message
-                                        ?: getString(R.string.an_error_occurred)
-                                Handler().postDelayed({
-                                    binding.svOutlet.setQuery(null, false)
-                                }, 3000)
+                                        ?: getString(R.string.unknown)
                                 binding.mainLayout.isVisible = true
-                                binding.btn.isVisible = true
-                                binding.svOutlet.isVisible = false
+                                binding.rvOutlet.isVisible = false
                                 binding.stateLayout.root.isVisible = true
                                 binding.stateLayout.animLoading.isVisible = false
                                 binding.stateLayout.llAnimError.isVisible = true
+                                binding.stateLayout.animError.isVisible = false
                                 binding.stateLayout.tvError.isVisible = true
                                 binding.stateLayout.tvError.text = errorMessage
                             }

@@ -10,9 +10,14 @@ import com.iyam.mycash.data.network.api.service.AuthInterceptor
 import com.iyam.mycash.data.network.api.service.MyCashApiService
 import com.iyam.mycash.data.repository.AuthRepository
 import com.iyam.mycash.data.repository.AuthRepositoryImpl
+import com.iyam.mycash.data.repository.CategoryRepository
+import com.iyam.mycash.data.repository.CategoryRepositoryImpl
 import com.iyam.mycash.data.repository.OutletRepository
 import com.iyam.mycash.data.repository.OutletRepositoryImpl
+import com.iyam.mycash.data.repository.ProductRepository
+import com.iyam.mycash.data.repository.ProductRepositoryImpl
 import com.iyam.mycash.ui.main.MainViewModel
+import com.iyam.mycash.ui.manage.ManageViewModel
 import com.iyam.mycash.ui.outlet.OutletViewModel
 import com.iyam.mycash.ui.resetpassword.ResetPasswordViewModel
 import com.iyam.mycash.ui.settings.SettingsViewModel
@@ -46,6 +51,8 @@ object AppModules {
     private val repositoryModule = module {
         single<AuthRepository> { AuthRepositoryImpl(get()) }
         single<OutletRepository> { OutletRepositoryImpl(get()) }
+        single<CategoryRepository> { CategoryRepositoryImpl(get()) }
+        single<ProductRepository> { ProductRepositoryImpl(get()) }
     }
 
     private val utilsModule = module {
@@ -58,6 +65,7 @@ object AppModules {
         viewModelOf(::ResetPasswordViewModel)
         viewModelOf(::OutletViewModel)
         viewModelOf(::SettingsViewModel)
+        viewModelOf(::ManageViewModel)
 //        viewModelOf(::MyProfileViewModel)
 //        viewModelOf(::HistoryViewModel)
 //        viewModelOf(::AccountViewModel)
