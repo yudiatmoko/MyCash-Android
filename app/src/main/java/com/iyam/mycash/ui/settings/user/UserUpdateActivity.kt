@@ -197,9 +197,9 @@ class UserUpdateActivity : AppCompatActivity() {
             binding.formLayout.etName.setText(it.name)
             binding.formLayout.etEmail.setText(it.email)
             if (user.phoneNumber.isNullOrBlank()) {
-                binding.formLayout.etPhoneNumber.setText(getString(R.string.unknown))
-            } else {
                 binding.formLayout.etPhoneNumber.setHint(R.string.outlet_phone_number_example)
+            } else {
+                binding.formLayout.etPhoneNumber.setText(it.phoneNumber)
             }
             if (it.image.isNullOrBlank()) {
                 binding.formLayout.ivProfilePhoto.load(R.drawable.img_placeholder_profile)

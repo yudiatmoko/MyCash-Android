@@ -1,8 +1,14 @@
 package com.iyam.mycash.data.network.api.datasource
 
+import com.iyam.mycash.data.network.api.model.BaseResponse
+import com.iyam.mycash.data.network.api.model.category.CategoriesResponse
+import com.iyam.mycash.data.network.api.model.category.CategoryRequest
+import com.iyam.mycash.data.network.api.model.category.CategoryResponse
 import com.iyam.mycash.data.network.api.model.outlet.OutletRequest
 import com.iyam.mycash.data.network.api.model.outlet.OutletResponse
 import com.iyam.mycash.data.network.api.model.outlet.OutletsResponse
+import com.iyam.mycash.data.network.api.model.product.ProductResponse
+import com.iyam.mycash.data.network.api.model.product.ProductsResponse
 import com.iyam.mycash.data.network.api.model.user.UserResponse
 import com.iyam.mycash.data.network.api.model.user.login.LoginRequest
 import com.iyam.mycash.data.network.api.model.user.login.LoginResponse
@@ -41,15 +47,57 @@ interface ApiDataSource {
     suspend fun addOutlet(request: OutletRequest): OutletResponse
     suspend fun updateOutlet(
         id: String,
-        name: RequestBody,
-        type: RequestBody,
-        phoneNumber: RequestBody,
-        address: RequestBody,
-        district: RequestBody,
-        city: RequestBody,
-        province: RequestBody,
+        name: RequestBody?,
+        type: RequestBody?,
+        phoneNumber: RequestBody?,
+        address: RequestBody?,
+        district: RequestBody?,
+        city: RequestBody?,
+        province: RequestBody?,
         image: MultipartBody.Part?
     ): OutletResponse
+
+    suspend fun addCategory(request: CategoryRequest): CategoryResponse
+    suspend fun categoryById(id: String): CategoryResponse
+    suspend fun categoriesByOutlet(outletId: String, name: String?): CategoriesResponse
+    suspend fun deleteCategory(id: String): BaseResponse
+
+    suspend fun addProduct(
+        name: RequestBody,
+        description: RequestBody,
+        price: RequestBody,
+        status: RequestBody,
+        stock: RequestBody?,
+        categoryId: RequestBody,
+        outletId: RequestBody,
+        image: MultipartBody.Part?
+    ): ProductResponse
+
+    suspend fun updateProduct(
+        id: String,
+        name: RequestBody?,
+        description: RequestBody?,
+        price: RequestBody?,
+        status: RequestBody?,
+        stock: RequestBody?,
+        categoryId: RequestBody?,
+        outletId: RequestBody?,
+        image: MultipartBody.Part?
+    ): ProductResponse
+
+    suspend fun productById(
+        id: String
+    ): ProductResponse
+
+    suspend fun productsByOutlet(
+        outletId: String,
+        name: String? = null,
+        slug: String? = null
+    ): ProductsResponse
+
+    suspend fun deleteProduct(
+        id: String
+    ): BaseResponse
 }
 
 class ApiDataSourceImpl(
@@ -109,13 +157,13 @@ class ApiDataSourceImpl(
 
     override suspend fun updateOutlet(
         id: String,
-        name: RequestBody,
-        type: RequestBody,
-        phoneNumber: RequestBody,
-        address: RequestBody,
-        district: RequestBody,
-        city: RequestBody,
-        province: RequestBody,
+        name: RequestBody?,
+        type: RequestBody?,
+        phoneNumber: RequestBody?,
+        address: RequestBody?,
+        district: RequestBody?,
+        city: RequestBody?,
+        province: RequestBody?,
         image: MultipartBody.Part?
     ): OutletResponse {
         return service.updateOutlet(
@@ -129,5 +177,79 @@ class ApiDataSourceImpl(
             province,
             image
         )
+    }
+
+    override suspend fun addCategory(request: CategoryRequest): CategoryResponse {
+        return service.addCategory(request)
+    }
+
+    override suspend fun categoryById(id: String): CategoryResponse {
+        return service.categoryById(id)
+    }
+
+    override suspend fun categoriesByOutlet(outletId: String, name: String?): CategoriesResponse {
+        return service.categoriesByOutlet(outletId, name)
+    }
+
+    override suspend fun deleteCategory(id: String): BaseResponse {
+        return service.deleteCategory(id)
+    }
+
+    override suspend fun addProduct(
+        name: RequestBody,
+        description: RequestBody,
+        price: RequestBody,
+        status: RequestBody,
+        stock: RequestBody?,
+        categoryId: RequestBody,
+        outletId: RequestBody,
+        image: MultipartBody.Part?
+    ): ProductResponse {
+        return service.addProduct(
+            name,
+            description,
+            price,
+            status,
+            stock,
+            categoryId,
+            outletId,
+            image
+        )
+    }
+
+    override suspend fun updateProduct(
+        id: String,
+        name: RequestBody?,
+        description: RequestBody?,
+        price: RequestBody?,
+        status: RequestBody?,
+        stock: RequestBody?,
+        categoryId: RequestBody?,
+        outletId: RequestBody?,
+        image: MultipartBody.Part?
+    ): ProductResponse {
+        return service.updateProduct(
+            id, name, description, price, status, stock, categoryId, outletId, image
+        )
+    }
+
+    override suspend fun productById(id: String): ProductResponse {
+        return service.productById(id)
+    }
+
+    override suspend fun productsByOutlet(
+        outletId: String,
+        name: String?,
+        slug: String?
+    ): ProductsResponse {
+        return service.productsByOutlet(
+            outletId,
+            name,
+            slug
+        )
+    }
+
+    override suspend fun deleteProduct(id: String): BaseResponse {
+        return service.deleteProduct(id)
     }
 }

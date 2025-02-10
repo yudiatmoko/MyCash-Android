@@ -62,13 +62,13 @@ class OutletViewModel(
 
     fun doUpdateOutlet(
         id: String,
-        name: RequestBody,
-        type: RequestBody,
-        phoneNumber: RequestBody,
-        address: RequestBody,
-        district: RequestBody,
-        city: RequestBody,
-        province: RequestBody,
+        name: RequestBody?,
+        type: RequestBody?,
+        phoneNumber: RequestBody?,
+        address: RequestBody?,
+        district: RequestBody?,
+        city: RequestBody?,
+        province: RequestBody?,
         image: MultipartBody.Part?
     ) {
         viewModelScope.launch(Dispatchers.IO) {

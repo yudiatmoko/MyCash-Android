@@ -1,7 +1,9 @@
 package com.iyam.mycash.ui.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -10,6 +12,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.iyam.mycash.R
 import com.iyam.mycash.databinding.ActivityMainBinding
+import com.iyam.mycash.ui.signin.SignInActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
@@ -30,6 +33,22 @@ class MainActivity : AppCompatActivity() {
         }
         setBottomNavigation()
         navigateToSettings()
+        observeUserToken()
+    }
+
+    private fun observeUserToken() {
+        mainViewModel.userTokenLiveData.observe(this) {
+            if (it.isNullOrBlank()) {
+                Toast.makeText(this, getString(R.string.session_expired), Toast.LENGTH_SHORT).show()
+                navigateToLogin()
+            }
+        }
+    }
+
+    private fun navigateToLogin() {
+        val intent = Intent(this, SignInActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(intent)
     }
 
     private fun navigateToSettings() {
@@ -44,7 +63,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setBottomNavigation() {
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         binding.bottomNavigationView.setupWithNavController(navHostFragment.navController)
     }
 

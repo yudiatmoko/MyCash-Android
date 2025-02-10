@@ -20,13 +20,13 @@ interface OutletRepository {
     suspend fun outletsByUser(name: String?): Flow<ResultWrapper<List<Outlet>>>
     suspend fun updateOutlet(
         id: String,
-        name: RequestBody,
-        type: RequestBody,
-        phoneNumber: RequestBody,
-        address: RequestBody,
-        district: RequestBody,
-        city: RequestBody,
-        province: RequestBody,
+        name: RequestBody?,
+        type: RequestBody?,
+        phoneNumber: RequestBody?,
+        address: RequestBody?,
+        district: RequestBody?,
+        city: RequestBody?,
+        province: RequestBody?,
         image: MultipartBody.Part?
     ): Flow<ResultWrapper<Outlet>>
 }
@@ -47,13 +47,13 @@ class OutletRepositoryImpl(
 
     override suspend fun updateOutlet(
         id: String,
-        name: RequestBody,
-        type: RequestBody,
-        phoneNumber: RequestBody,
-        address: RequestBody,
-        district: RequestBody,
-        city: RequestBody,
-        province: RequestBody,
+        name: RequestBody?,
+        type: RequestBody?,
+        phoneNumber: RequestBody?,
+        address: RequestBody?,
+        district: RequestBody?,
+        city: RequestBody?,
+        province: RequestBody?,
         image: MultipartBody.Part?
     ): Flow<ResultWrapper<Outlet>> {
         return proceedFlow {

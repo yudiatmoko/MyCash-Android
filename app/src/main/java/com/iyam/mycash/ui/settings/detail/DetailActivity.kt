@@ -79,7 +79,7 @@ class DetailActivity : AppCompatActivity() {
         }
 
         if (outlet?.image.isNullOrBlank()) {
-            binding.ivOutletLogo.load(R.drawable.img_placeholder_profile)
+            binding.ivOutletLogo.load(R.drawable.img_placeholder_general)
         } else {
             binding.ivOutletLogo.load(outlet?.image)
         }

@@ -3,9 +3,15 @@ package com.iyam.mycash.data.network.api.service
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.iyam.mycash.BuildConfig
 import com.iyam.mycash.data.local.datastore.UserPreferenceDataSource
+import com.iyam.mycash.data.network.api.model.BaseResponse
+import com.iyam.mycash.data.network.api.model.category.CategoriesResponse
+import com.iyam.mycash.data.network.api.model.category.CategoryRequest
+import com.iyam.mycash.data.network.api.model.category.CategoryResponse
 import com.iyam.mycash.data.network.api.model.outlet.OutletRequest
 import com.iyam.mycash.data.network.api.model.outlet.OutletResponse
 import com.iyam.mycash.data.network.api.model.outlet.OutletsResponse
+import com.iyam.mycash.data.network.api.model.product.ProductResponse
+import com.iyam.mycash.data.network.api.model.product.ProductsResponse
 import com.iyam.mycash.data.network.api.model.user.UserResponse
 import com.iyam.mycash.data.network.api.model.user.login.LoginRequest
 import com.iyam.mycash.data.network.api.model.user.login.LoginResponse
@@ -26,6 +32,7 @@ import okhttp3.RequestBody
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Multipart
 import retrofit2.http.POST
@@ -81,13 +88,13 @@ interface MyCashApiService {
     @PUT("outlet/{id}")
     suspend fun updateOutlet(
         @Path("id") id: String,
-        @Part("name") name: RequestBody,
-        @Part("type") type: RequestBody,
-        @Part("phoneNumber") phoneNumber: RequestBody,
-        @Part("address") address: RequestBody,
-        @Part("district") district: RequestBody,
-        @Part("city") city: RequestBody,
-        @Part("province") province: RequestBody,
+        @Part("name") name: RequestBody?,
+        @Part("type") type: RequestBody?,
+        @Part("phoneNumber") phoneNumber: RequestBody?,
+        @Part("address") address: RequestBody?,
+        @Part("district") district: RequestBody?,
+        @Part("city") city: RequestBody?,
+        @Part("province") province: RequestBody?,
         @Part image: MultipartBody.Part?
     ): OutletResponse
 
@@ -100,6 +107,71 @@ interface MyCashApiService {
     suspend fun outletsByUser(
         @Query("name") search: String? = null
     ): OutletsResponse
+
+    @POST("category")
+    suspend fun addCategory(
+        @Body request: CategoryRequest
+    ): CategoryResponse
+
+    @GET("category/{id}")
+    suspend fun categoryById(
+        @Path("id") id: String
+    ): CategoryResponse
+
+    @GET("category/outlet/{outletId}")
+    suspend fun categoriesByOutlet(
+        @Path("outletId") outletId: String,
+        @Query("name") name: String? = null
+    ): CategoriesResponse
+
+    @DELETE("category/{id}")
+    suspend fun deleteCategory(
+        @Path("id") id: String
+    ): BaseResponse
+
+    @Multipart
+    @POST("product")
+    suspend fun addProduct(
+        @Part("name") name: RequestBody,
+        @Part("description") description: RequestBody,
+        @Part("price") price: RequestBody,
+        @Part("status") status: RequestBody,
+        @Part("stock") stock: RequestBody?,
+        @Part("categoryId") categoryId: RequestBody,
+        @Part("outletId") outletId: RequestBody,
+        @Part image: MultipartBody.Part?
+    ): ProductResponse
+
+    @Multipart
+    @PUT("product/{id}")
+    suspend fun updateProduct(
+        @Path("id") id: String,
+        @Part("name") name: RequestBody?,
+        @Part("description") description: RequestBody?,
+        @Part("price") price: RequestBody?,
+        @Part("status") status: RequestBody?,
+        @Part("stock") stock: RequestBody?,
+        @Part("categoryId") categoryId: RequestBody?,
+        @Part("outletId") outletId: RequestBody?,
+        @Part image: MultipartBody.Part?
+    ): ProductResponse
+
+    @GET("product/{id}")
+    suspend fun productById(
+        @Path("id") id: String
+    ): ProductResponse
+
+    @GET("product/outlet/{outletId}")
+    suspend fun productsByOutlet(
+        @Path("outletId") outletId: String,
+        @Query("name") name: String? = null,
+        @Query("slug") slug: String? = null
+    ): ProductsResponse
+
+    @DELETE("product/{id}")
+    suspend fun deleteProduct(
+        @Path("id") id: String
+    ): BaseResponse
 
     companion object {
         @JvmStatic

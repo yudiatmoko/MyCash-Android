@@ -294,7 +294,7 @@ class OutletDataUpdateActivity : AppCompatActivity() {
             binding.formLayout.etOutletCity.setText(it.city)
             binding.formLayout.etOutletProvince.setText(it.province)
             if (it.image.isNullOrBlank()) {
-                binding.formLayout.ivProfilePhoto.load(R.drawable.img_placeholder_profile)
+                binding.formLayout.ivProfilePhoto.load(R.drawable.img_placeholder_general)
             } else {
                 binding.formLayout.ivProfilePhoto.load(it.image)
             }
