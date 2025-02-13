@@ -1,61 +1,147 @@
 package com.iyam.mycash.ui.pointofsale
 
+import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import com.iyam.mycash.R
+import com.iyam.mycash.databinding.FragmentPointOfSaleBinding
+import com.iyam.mycash.ui.main.MainViewModel
+import com.iyam.mycash.ui.pointofsale.session.AddSessionActivity
+import com.iyam.mycash.ui.pointofsale.session.SessionActivity
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [PointOfSaleFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class PointOfSaleFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private lateinit var binding: FragmentPointOfSaleBinding
+    private val mainViewModel: MainViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_point_of_sale, container, false)
+    ): View {
+        binding = FragmentPointOfSaleBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment PointOfSaleFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            PointOfSaleFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        requireActivity().title = getString(R.string.point_of_sale)
+        setPointOfSaleItem()
+        setOnClickListener()
+        observeSession()
+    }
+
+    private fun observeSession() {
+        mainViewModel.sessionLiveData.observe(viewLifecycleOwner) {
+            if (it != null) {
+                binding.transactionManagement.btn.setOnClickListener {
+                    navigateToTransaction()
+                }
+                binding.sessionManagement.btn.setOnClickListener {
+                    showSessionDialog()
+                }
+            } else {
+                binding.transactionManagement.btn.setOnClickListener {
+                    showNoSessionDialog()
+                }
+                binding.sessionManagement.btn.setOnClickListener {
+                    navigateToAddSession()
                 }
             }
+        }
+    }
+
+    private fun showNoSessionDialog() {
+        val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.layout_dialog, null)
+        val dialog = AlertDialog.Builder(requireContext())
+            .setView(dialogView)
+            .create()
+        dialog.window?.setBackgroundDrawableResource(R.drawable.cv_background)
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        val tvTitle = dialogView.findViewById<TextView>(R.id.tv_title)
+        val tvDesc = dialogView.findViewById<TextView>(R.id.tv_desc)
+        val btnNegative = dialogView.findViewById<TextView>(R.id.btn_negative)
+        val btnPositive = dialogView.findViewById<TextView>(R.id.btn_positive)
+
+        tvTitle.text = getString(R.string.active_session_not_found)
+        tvDesc.text = getString(R.string.add_new_session_dialog_desc)
+        btnNegative.text = getString(R.string.cancel)
+        btnPositive.text = getString(R.string.add_new_session)
+
+        btnNegative.setOnClickListener {
+            dialog.dismiss()
+        }
+        btnPositive.setOnClickListener {
+            navigateToAddSession()
+            dialog.dismiss()
+        }
+        dialog.show()
+    }
+
+    private fun showSessionDialog() {
+        val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.layout_dialog, null)
+        val dialog = AlertDialog.Builder(requireContext())
+            .setView(dialogView)
+            .create()
+        dialog.window?.setBackgroundDrawableResource(R.drawable.cv_background)
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        val tvTitle = dialogView.findViewById<TextView>(R.id.tv_title)
+        val tvDesc = dialogView.findViewById<TextView>(R.id.tv_desc)
+        val btnNegative = dialogView.findViewById<TextView>(R.id.btn_negative)
+        val btnPositive = dialogView.findViewById<TextView>(R.id.btn_positive)
+
+        tvTitle.text = getString(R.string.active_session_found)
+        tvDesc.text = getString(R.string.add_active_session_dialog_desc)
+        btnNegative.text = getString(R.string.cancel)
+        btnPositive.text = getString(R.string.add_new_transaction)
+
+        btnNegative.setOnClickListener {
+            dialog.dismiss()
+        }
+        btnPositive.setOnClickListener {
+            navigateToTransaction()
+            dialog.dismiss()
+        }
+        dialog.show()
+    }
+
+    private fun navigateToTransaction() {
+    }
+
+    private fun setOnClickListener() {
+        binding.sessionManagement.root.setOnClickListener {
+            navigateToSession()
+        }
+        binding.transactionManagement.root.setOnClickListener {
+            navigateToTransaction()
+        }
+    }
+
+    private fun navigateToAddSession() {
+        val intent = Intent(requireContext(), AddSessionActivity::class.java)
+        requireActivity().startActivity(intent)
+    }
+
+    private fun navigateToSession() {
+        val intent = Intent(requireContext(), SessionActivity::class.java)
+        requireActivity().startActivity(intent)
+    }
+
+    private fun setPointOfSaleItem() {
+        binding.sessionManagement.tvManageTitle.text = getString(R.string.session)
+        binding.sessionManagement.btn.text = getString(R.string.add_new_session)
+
+        binding.transactionManagement.tvManageTitle.text = getString(R.string.cashier)
+        binding.transactionManagement.btn.text = getString(R.string.add_new_transaction)
     }
 }

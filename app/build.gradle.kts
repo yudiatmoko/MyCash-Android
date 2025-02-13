@@ -125,4 +125,6 @@ dependencies {
     implementation(libs.androidx.core.splashscreen)
     // swipe-to-refresh
     implementation(libs.androidx.swiperefreshlayout)
+    // ticket view
+    implementation(libs.ticketview)
 }

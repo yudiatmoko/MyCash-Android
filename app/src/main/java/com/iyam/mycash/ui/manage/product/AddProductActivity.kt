@@ -2,12 +2,17 @@ package com.iyam.mycash.ui.manage.product
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toFile
 import androidx.core.view.ViewCompat
@@ -19,6 +24,7 @@ import com.iyam.mycash.R
 import com.iyam.mycash.databinding.ActivityAddProductBinding
 import com.iyam.mycash.ui.main.MainViewModel
 import com.iyam.mycash.ui.manage.ManageViewModel
+import com.iyam.mycash.ui.manage.category.CategoryActivity
 import com.iyam.mycash.utils.ApiException
 import com.iyam.mycash.utils.proceedWhen
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -145,9 +151,9 @@ class AddProductActivity : AppCompatActivity() {
         val productStockStatus = stockStatus
 
         return checkProductNameValidation(productName) &&
-            checkProductDescriptionValidation(productDescription) &&
-            checkProductPriceValidation(productPrice) &&
-            checkProductStockValidation(productStock, productStockStatus)
+                checkProductDescriptionValidation(productDescription) &&
+                checkProductPriceValidation(productPrice) &&
+                checkProductStockValidation(productStock, productStockStatus)
     }
 
     private fun checkProductStockValidation(
@@ -275,9 +281,40 @@ class AddProductActivity : AppCompatActivity() {
                             categories?.get(position)
                         categoryId = selectedCategory?.id
                     }
+                },
+                doOnError = {
+                    showNoCategoryDialog()
                 }
             )
         }
+    }
+
+    private fun showNoCategoryDialog() {
+        val dialogView = LayoutInflater.from(this).inflate(R.layout.layout_dialog, null)
+        val dialog = AlertDialog.Builder(this)
+            .setView(dialogView)
+            .create()
+        dialog.window?.setBackgroundDrawableResource(R.drawable.cv_background)
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        val tvTitle = dialogView.findViewById<TextView>(R.id.tv_title)
+        val tvDesc = dialogView.findViewById<TextView>(R.id.tv_desc)
+        val btnNegative = dialogView.findViewById<TextView>(R.id.btn_negative)
+        val btnPositive = dialogView.findViewById<TextView>(R.id.btn_positive)
+
+        tvTitle.text = getString(R.string.category_not_found)
+        tvDesc.text = getString(R.string.add_new_category_dialog_desc)
+        btnNegative.text = getString(R.string.cancel)
+        btnPositive.text = getString(R.string.add_new_category)
+
+        btnNegative.setOnClickListener {
+            dialog.dismiss()
+        }
+        btnPositive.setOnClickListener {
+            CategoryActivity.startActivity(this, true)
+            dialog.dismiss()
+        }
+        dialog.show()
     }
 
     private fun setupForm() {

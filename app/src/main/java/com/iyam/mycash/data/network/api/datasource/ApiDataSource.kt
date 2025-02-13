@@ -9,6 +9,11 @@ import com.iyam.mycash.data.network.api.model.outlet.OutletResponse
 import com.iyam.mycash.data.network.api.model.outlet.OutletsResponse
 import com.iyam.mycash.data.network.api.model.product.ProductResponse
 import com.iyam.mycash.data.network.api.model.product.ProductsResponse
+import com.iyam.mycash.data.network.api.model.recap.RecapResponse
+import com.iyam.mycash.data.network.api.model.session.RecapSessionRequest
+import com.iyam.mycash.data.network.api.model.session.SessionRequest
+import com.iyam.mycash.data.network.api.model.session.SessionResponse
+import com.iyam.mycash.data.network.api.model.session.SessionsResponse
 import com.iyam.mycash.data.network.api.model.user.UserResponse
 import com.iyam.mycash.data.network.api.model.user.login.LoginRequest
 import com.iyam.mycash.data.network.api.model.user.login.LoginResponse
@@ -98,6 +103,34 @@ interface ApiDataSource {
     suspend fun deleteProduct(
         id: String
     ): BaseResponse
+
+    suspend fun addSession(
+        request: SessionRequest
+    ): SessionResponse
+
+    suspend fun updateSession(
+        id: String,
+        request: RecapSessionRequest
+    ): SessionResponse
+
+    suspend fun sessionById(
+        id: String
+    ): SessionResponse
+
+    suspend fun sessionsByOutlet(
+        outletId: String
+    ): SessionsResponse
+
+    suspend fun deleteSession(
+        id: String
+    ): BaseResponse
+
+    suspend fun recapByOutlet(
+        outletId: String,
+        startDate: String?,
+        endDate: String?,
+        order: String?
+    ): RecapResponse
 }
 
 class ApiDataSourceImpl(
@@ -251,5 +284,34 @@ class ApiDataSourceImpl(
 
     override suspend fun deleteProduct(id: String): BaseResponse {
         return service.deleteProduct(id)
+    }
+
+    override suspend fun addSession(request: SessionRequest): SessionResponse {
+        return service.addSession(request)
+    }
+
+    override suspend fun updateSession(id: String, request: RecapSessionRequest): SessionResponse {
+        return service.updateSession(id, request)
+    }
+
+    override suspend fun sessionById(id: String): SessionResponse {
+        return service.sessionById(id)
+    }
+
+    override suspend fun sessionsByOutlet(outletId: String): SessionsResponse {
+        return service.sessionsByOutlet(outletId)
+    }
+
+    override suspend fun deleteSession(id: String): BaseResponse {
+        return service.deleteSession(id)
+    }
+
+    override suspend fun recapByOutlet(
+        outletId: String,
+        startDate: String?,
+        endDate: String?,
+        order: String?
+    ): RecapResponse {
+        return service.recapByOutlet(outletId, startDate, endDate, order)
     }
 }

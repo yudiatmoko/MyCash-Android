@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.iyam.mycash.data.local.datastore.UserPreferenceDataSource
 import com.iyam.mycash.model.Auth
 import com.iyam.mycash.model.Outlet
+import com.iyam.mycash.model.Session
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -64,6 +65,24 @@ class MainViewModel(
     fun removeOutlet() {
         viewModelScope.launch(Dispatchers.IO) {
             dataSource.removeOutlet()
+        }
+    }
+
+    val sessionLiveData = dataSource.getSessionFlow().asLiveData(Dispatchers.IO)
+
+    fun setSession(session: Session) {
+        viewModelScope.launch(Dispatchers.IO) {
+            dataSource.setSession(session)
+        }
+    }
+
+    suspend fun getSession(): Session? {
+        return dataSource.getSession()
+    }
+
+    fun removeSession() {
+        viewModelScope.launch(Dispatchers.IO) {
+            dataSource.removeSession()
         }
     }
 }
