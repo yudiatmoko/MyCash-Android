@@ -3,6 +3,7 @@ package com.iyam.mycash.data.local.datastore
 import androidx.datastore.preferences.core.stringPreferencesKey
 import com.iyam.mycash.model.Auth
 import com.iyam.mycash.model.Outlet
+import com.iyam.mycash.model.Session
 import com.iyam.mycash.utils.PreferenceDataStoreHelper
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -23,6 +24,11 @@ interface UserPreferenceDataSource {
     suspend fun getOutlet(): Outlet?
     suspend fun removeOutlet()
     fun getOutletFlow(): Flow<Outlet?>
+
+    suspend fun setSession(session: Session)
+    suspend fun getSession(): Session?
+    suspend fun removeSession()
+    fun getSessionFlow(): Flow<Session?>
 }
 
 class UserPreferenceDataSourceImpl(
@@ -84,9 +90,30 @@ class UserPreferenceDataSourceImpl(
         }
     }
 
+    override suspend fun setSession(session: Session) {
+        helper.putPreference(SESSION_PREF, Json.encodeToString(session))
+    }
+
+    override suspend fun getSession(): Session? {
+        return helper.getFirstPreference(SESSION_PREF, "").let {
+            if (it.isNotEmpty()) Json.decodeFromString(it) else null
+        }
+    }
+
+    override suspend fun removeSession() {
+        helper.removePreference(SESSION_PREF)
+    }
+
+    override fun getSessionFlow(): Flow<Session?> {
+        return helper.getPreference(SESSION_PREF, "").map {
+            if (it.isNotEmpty()) Json.decodeFromString(it) else null
+        }
+    }
+
     companion object {
         val USER_TOKEN_PREF = stringPreferencesKey("USER_TOKEN_PREF")
         val AUTH_PREF = stringPreferencesKey("USER_PREF")
         val OUTLET_PREF = stringPreferencesKey("OUTLET_PREF")
+        val SESSION_PREF = stringPreferencesKey("SESSION_PREF")
     }
 }

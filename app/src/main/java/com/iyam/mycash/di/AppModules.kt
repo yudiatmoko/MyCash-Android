@@ -16,9 +16,12 @@ import com.iyam.mycash.data.repository.OutletRepository
 import com.iyam.mycash.data.repository.OutletRepositoryImpl
 import com.iyam.mycash.data.repository.ProductRepository
 import com.iyam.mycash.data.repository.ProductRepositoryImpl
+import com.iyam.mycash.data.repository.SessionRepository
+import com.iyam.mycash.data.repository.SessionRepositoryImpl
 import com.iyam.mycash.ui.main.MainViewModel
 import com.iyam.mycash.ui.manage.ManageViewModel
 import com.iyam.mycash.ui.outlet.OutletViewModel
+import com.iyam.mycash.ui.pointofsale.PointOfSaleViewModel
 import com.iyam.mycash.ui.resetpassword.ResetPasswordViewModel
 import com.iyam.mycash.ui.settings.SettingsViewModel
 import com.iyam.mycash.ui.signin.SignInViewModel
@@ -53,6 +56,7 @@ object AppModules {
         single<OutletRepository> { OutletRepositoryImpl(get()) }
         single<CategoryRepository> { CategoryRepositoryImpl(get()) }
         single<ProductRepository> { ProductRepositoryImpl(get()) }
+        single<SessionRepository> { SessionRepositoryImpl(get()) }
     }
 
     private val utilsModule = module {
@@ -66,6 +70,7 @@ object AppModules {
         viewModelOf(::OutletViewModel)
         viewModelOf(::SettingsViewModel)
         viewModelOf(::ManageViewModel)
+        viewModelOf(::PointOfSaleViewModel)
 //        viewModelOf(::MyProfileViewModel)
 //        viewModelOf(::HistoryViewModel)
 //        viewModelOf(::AccountViewModel)

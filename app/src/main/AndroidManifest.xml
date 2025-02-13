@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" >
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -14,7 +14,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyCash"
-        tools:targetApi="31" >
+        tools:targetApi="31">
+        <activity
+            android:name=".ui.pointofsale.session.SessionDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.pointofsale.session.AddSessionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.pointofsale.transaction.TransactionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.pointofsale.session.SessionActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.manage.product.ProductUpdateActivity"
             android:exported="false" />
@@ -54,7 +66,7 @@
         <activity
             android:name=".ui.splash.SplashActivity"
             android:exported="true"
-            android:theme="@style/Theme.App.Starting" >
+            android:theme="@style/Theme.App.Starting">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
