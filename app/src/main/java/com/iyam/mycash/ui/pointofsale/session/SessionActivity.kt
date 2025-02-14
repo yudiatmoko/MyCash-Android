@@ -40,6 +40,7 @@ class SessionActivity : AppCompatActivity() {
         )
     }
     private var outletId: String? = null
+    private var sessionId: String? = null
     private var sorting: String? = "desc"
     private val todayDate = getTodayDate()
     private val date7DaysAgo = getDateBeforeDays(7)
@@ -200,6 +201,11 @@ class SessionActivity : AppCompatActivity() {
     }
 
     private fun observeData() {
+        mainViewModel.sessionLiveData.observe(this) {
+            it?.let {
+                sessionId = it.id
+            }
+        }
         mainViewModel.outletLiveData.observe(this) {
             it?.let {
                 binding.tvDate.text = todayDateTitle
@@ -288,11 +294,8 @@ class SessionActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        mainViewModel.sessionLiveData.observe(this) {
-            if (it == null) {
-                menuInflater.inflate(R.menu.add_session_menu, menu)
-            }
-        }
+        if (sessionId == null) return false
+        menuInflater.inflate(R.menu.add_session_menu, menu)
         return true
     }
 

@@ -169,4 +169,7 @@
     <string name="add_active_session_dialog_desc">Tidak dapat membuat sesi baru, karena terdapat sesi yang sedang aktif. Silakan lakukan transaksi dengan sesi yang sudah aktif</string>
     <string name="category_not_found">Tidak Ada Kategori</string>
     <string name="add_new_category_dialog_desc">Silakan buat kategori terlebih dahulu</string>
+    <string name="share">Bagikan</string>
+    <string name="close">Tutup</string>
+    <string name="download">Unduh</string>
 </resources>

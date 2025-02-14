@@ -13,6 +13,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.onStart
+import okhttp3.MultipartBody
 
 interface SessionRepository {
     suspend fun addSession(request: SessionRequest): Flow<ResultWrapper<Session>>
@@ -30,6 +31,11 @@ interface SessionRepository {
         endDate: String?,
         order: String?
     ): Flow<ResultWrapper<RecapResponse>>
+
+    suspend fun uploadSessionImage(
+        sessionId: String,
+        image: MultipartBody.Part
+    ): Flow<ResultWrapper<String>>
 }
 
 class SessionRepositoryImpl(
@@ -97,6 +103,19 @@ class SessionRepositoryImpl(
     ): Flow<ResultWrapper<RecapResponse>> {
         return proceedFlow {
             dataSource.recapByOutlet(outletId, startDate, endDate, order)
+        }.catch {
+            emit(ResultWrapper.Error(Exception(it)))
+        }.onStart {
+            emit(ResultWrapper.Loading())
+        }
+    }
+
+    override suspend fun uploadSessionImage(
+        sessionId: String,
+        image: MultipartBody.Part
+    ): Flow<ResultWrapper<String>> {
+        return proceedFlow {
+            dataSource.uploadSessionImage(sessionId, image).data.image
         }.catch {
             emit(ResultWrapper.Error(Exception(it)))
         }.onStart {

@@ -127,4 +127,7 @@ dependencies {
     implementation(libs.androidx.swiperefreshlayout)
     // ticket view
     implementation(libs.ticketview)
+    // qr-code
+    implementation("com.github.androidmads:QRGenerator:1.0.5")
+    implementation("com.google.zxing:core:3.3.2")
 }
