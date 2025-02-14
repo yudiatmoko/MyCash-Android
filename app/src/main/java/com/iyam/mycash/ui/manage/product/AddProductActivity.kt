@@ -151,9 +151,9 @@ class AddProductActivity : AppCompatActivity() {
         val productStockStatus = stockStatus
 
         return checkProductNameValidation(productName) &&
-                checkProductDescriptionValidation(productDescription) &&
-                checkProductPriceValidation(productPrice) &&
-                checkProductStockValidation(productStock, productStockStatus)
+            checkProductDescriptionValidation(productDescription) &&
+            checkProductPriceValidation(productPrice) &&
+            checkProductStockValidation(productStock, productStockStatus)
     }
 
     private fun checkProductStockValidation(

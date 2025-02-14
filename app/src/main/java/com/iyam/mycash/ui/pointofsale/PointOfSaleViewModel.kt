@@ -12,6 +12,7 @@ import com.iyam.mycash.model.Session
 import com.iyam.mycash.utils.ResultWrapper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import okhttp3.MultipartBody
 
 class PointOfSaleViewModel(
     private val sessionRepo: SessionRepository
@@ -96,6 +97,22 @@ class PointOfSaleViewModel(
         viewModelScope.launch(Dispatchers.IO) {
             sessionRepo.recapByOutlet(outletId, startDate, endDate, order).collect {
                 _sessionsRecapResult.postValue(it)
+            }
+        }
+    }
+
+    private val _uploadSessionImageResult = MutableLiveData<ResultWrapper<String>>()
+
+    val uploadSessionImageResult: LiveData<ResultWrapper<String>>
+        get() = _uploadSessionImageResult
+
+    fun uploadSessionImage(
+        sessionId: String,
+        image: MultipartBody.Part
+    ) {
+        viewModelScope.launch(Dispatchers.IO) {
+            sessionRepo.uploadSessionImage(sessionId, image).collect {
+                _uploadSessionImageResult.postValue(it)
             }
         }
     }

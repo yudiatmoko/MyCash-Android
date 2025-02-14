@@ -14,6 +14,7 @@ import com.iyam.mycash.data.network.api.model.session.RecapSessionRequest
 import com.iyam.mycash.data.network.api.model.session.SessionRequest
 import com.iyam.mycash.data.network.api.model.session.SessionResponse
 import com.iyam.mycash.data.network.api.model.session.SessionsResponse
+import com.iyam.mycash.data.network.api.model.uploadimage.UploadImageResponse
 import com.iyam.mycash.data.network.api.model.user.UserResponse
 import com.iyam.mycash.data.network.api.model.user.login.LoginRequest
 import com.iyam.mycash.data.network.api.model.user.login.LoginResponse
@@ -131,6 +132,11 @@ interface ApiDataSource {
         endDate: String?,
         order: String?
     ): RecapResponse
+
+    suspend fun uploadSessionImage(
+        sessionId: String,
+        image: MultipartBody.Part
+    ): UploadImageResponse
 }
 
 class ApiDataSourceImpl(
@@ -313,5 +319,12 @@ class ApiDataSourceImpl(
         order: String?
     ): RecapResponse {
         return service.recapByOutlet(outletId, startDate, endDate, order)
+    }
+
+    override suspend fun uploadSessionImage(
+        sessionId: String,
+        image: MultipartBody.Part
+    ): UploadImageResponse {
+        return service.uploadSessionImage(sessionId, image)
     }
 }

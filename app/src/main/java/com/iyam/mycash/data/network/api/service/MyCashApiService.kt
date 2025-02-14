@@ -17,6 +17,7 @@ import com.iyam.mycash.data.network.api.model.session.RecapSessionRequest
 import com.iyam.mycash.data.network.api.model.session.SessionRequest
 import com.iyam.mycash.data.network.api.model.session.SessionResponse
 import com.iyam.mycash.data.network.api.model.session.SessionsResponse
+import com.iyam.mycash.data.network.api.model.uploadimage.UploadImageResponse
 import com.iyam.mycash.data.network.api.model.user.UserResponse
 import com.iyam.mycash.data.network.api.model.user.login.LoginRequest
 import com.iyam.mycash.data.network.api.model.user.login.LoginResponse
@@ -211,6 +212,19 @@ interface MyCashApiService {
         @Query("endDate") endDate: String? = null,
         @Query("order") order: String? = null
     ): RecapResponse
+
+    @Multipart
+    @POST("receipt-image/session/{sessionId}")
+    suspend fun uploadSessionImage(
+        @Path("sessionId") sessionId: String,
+        @Part image: MultipartBody.Part
+    ): UploadImageResponse
+
+    @POST("receipt-image/transaction/{transactionId}")
+    suspend fun uploadTransactionImage(
+        @Path("transactionId") transactionId: String,
+        @Part image: MultipartBody.Part
+    ): UploadImageResponse
 
     companion object {
         @JvmStatic

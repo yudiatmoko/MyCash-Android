@@ -19,6 +19,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/main_receipt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -560,10 +561,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:fontFamily="@font/nunito_sans_bold"
-                android:text="@string/print"
+                android:text="@string/download"
                 android:textAllCaps="false"
                 android:textSize="16sp"
-                app:icon="@drawable/round_print_24"
+                app:icon="@drawable/round_download_24"
                 app:iconGravity="textStart" />
         </FrameLayout>
 
