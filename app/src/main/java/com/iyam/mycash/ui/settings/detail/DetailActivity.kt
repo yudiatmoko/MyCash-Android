@@ -46,9 +46,11 @@ class DetailActivity : AppCompatActivity() {
     private fun setOnClickListener() {
         binding.tvUpdateOutlet.setOnClickListener {
             OutletDataUpdateActivity.startActivity(this, intent.getParcelableExtra(EXTRA_OUTLET))
+            finish()
         }
         binding.tvUpdateUser.setOnClickListener {
             UserUpdateActivity.startActivity(this, intent.getParcelableExtra(EXTRA_USER))
+            finish()
         }
     }
 

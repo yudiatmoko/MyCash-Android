@@ -18,7 +18,7 @@ import com.github.dhaval2404.imagepicker.ImagePicker
 import com.iyam.mycash.R
 import com.iyam.mycash.databinding.ActivityUserUpdateBinding
 import com.iyam.mycash.model.User
-import com.iyam.mycash.ui.main.MainActivity
+import com.iyam.mycash.ui.main.MainViewModel
 import com.iyam.mycash.ui.settings.SettingsViewModel
 import com.iyam.mycash.utils.ApiException
 import com.iyam.mycash.utils.proceedWhen
@@ -35,6 +35,7 @@ class UserUpdateActivity : AppCompatActivity() {
         ActivityUserUpdateBinding.inflate(layoutInflater, window.decorView as ViewGroup, false)
     }
     private val settingsViewModel: SettingsViewModel by viewModel()
+    private val mainViewModel: MainViewModel by viewModel()
     private var getFile: File? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -160,7 +161,7 @@ class UserUpdateActivity : AppCompatActivity() {
                         Toast.makeText(this, "User updated successfully", Toast.LENGTH_SHORT)
                             .show()
                     }
-                    navigateToMain()
+                    finish()
                 },
                 doOnLoading = {
                     binding.formLayout.loading.isVisible = true
@@ -177,14 +178,6 @@ class UserUpdateActivity : AppCompatActivity() {
                 }
             )
         }
-    }
-
-    private fun navigateToMain() {
-        val intent = Intent(this, MainActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        intent.putExtra(MainActivity.EXTRA_DESTINATION, MainActivity.DEST_SETTINGS)
-        startActivity(intent)
-        finish()
     }
 
     private fun setupForm() {

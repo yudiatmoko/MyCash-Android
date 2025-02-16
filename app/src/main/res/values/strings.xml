@@ -172,4 +172,6 @@
     <string name="share">Bagikan</string>
     <string name="close">Tutup</string>
     <string name="download">Unduh</string>
+    <string name="rp">Rp</string>
+    <string name="top_product">Top 5 Produk</string>
 </resources>

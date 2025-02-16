@@ -18,6 +18,9 @@
         android:theme="@style/Theme.MyCash"
         tools:targetApi="31">
         <activity
+            android:name=".ui.manage.statement.StatementActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.pointofsale.session.SessionDetailActivity"
             android:exported="false" />
         <activity
