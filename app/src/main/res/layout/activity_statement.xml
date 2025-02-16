@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.manage.statement.StatementActivity">
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:id="@+id/main_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:paddingHorizontal="22dp"
+                android:paddingVertical="12dp">
+
+                <TextView
+                    android:id="@+id/tv_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/nunito_sans_bold"
+                    android:text="@string/input_date"
+                    android:textAlignment="center"
+                    android:textSize="18sp" />
+
+                <com.google.android.material.button.MaterialButtonToggleGroup
+                    android:id="@+id/toggleGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    app:singleSelection="true">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_today"
+                        style="@style/RoundedButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:backgroundTint="@color/bottom_nav_color"
+                        android:fontFamily="@font/nunito_sans_bold"
+                        android:text="@string/today"
+                        android:textAllCaps="false"
+                        android:textSize="16sp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_7_days"
+                        style="@style/RoundedButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:backgroundTint="@color/bottom_nav_color"
+                        android:fontFamily="@font/nunito_sans_bold"
+                        android:text="@string/seven_days"
+                        android:textAllCaps="false"
+                        android:textSize="16sp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_30_days"
+                        style="@style/RoundedButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:backgroundTint="@color/bottom_nav_color"
+                        android:fontFamily="@font/nunito_sans_bold"
+                        android:text="@string/thirty_days"
+                        android:textAllCaps="false"
+                        android:textSize="16sp" />
+
+                </com.google.android.material.button.MaterialButtonToggleGroup>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:layout_marginVertical="18sp"
+                    android:background="@color/md_dark_primary" />
+
+                <TextView
+                    android:id="@+id/tv_revenue_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:drawableEnd="@drawable/round_keyboard_arrow_right_24"
+                    android:drawableTint="@color/md_dark_primary"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/nunito_sans_bold"
+                    android:maxLines="1"
+                    android:text="@string/revenue"
+                    android:textAlignment="textStart"
+                    android:textSize="18sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <TextView
+                        android:id="@+id/tv_revenue"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/nunito_sans_bold"
+                        android:maxLines="1"
+                        android:text="@string/rp"
+                        android:textAlignment="textStart"
+                        android:textColor="@color/md_dark_primary"
+                        android:textSize="20sp" />
+
+                    <include
+                        android:id="@+id/payment_item"
+                        layout="@layout/layout_payment_item"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_weight="1" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginVertical="12dp"
+                    android:background="@color/md_dark_primary" />
+
+                <TextView
+                    android:id="@+id/tv_total_transaction"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/nunito_sans_bold"
+                    android:maxLines="1"
+                    android:text="@string/rp"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/md_dark_primary"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/tv_total_transaction_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginTop="6dp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/nunito_sans_bold"
+                    android:maxLines="1"
+                    android:text="@string/session_total_transaction"
+                    android:textAlignment="textStart"
+                    android:textSize="14sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginVertical="12dp"
+                    android:background="@color/md_dark_primary" />
+
+
+                <TextView
+                    android:id="@+id/tv_successful_transaction"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/nunito_sans_bold"
+                    android:maxLines="1"
+                    android:text="@string/rp"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/md_dark_primary"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/tv_successful_transaction_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginTop="6dp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/nunito_sans_bold"
+                    android:maxLines="1"
+                    android:text="@string/session_successful_transaction"
+                    android:textAlignment="textStart"
+                    android:textSize="14sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginVertical="12dp"
+                    android:background="@color/md_dark_primary" />
+
+                <TextView
+                    android:id="@+id/tv_void_transaction"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/nunito_sans_bold"
+                    android:maxLines="1"
+                    android:text="@string/rp"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/md_light_error"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/tv_void_transaction_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginTop="6dp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/nunito_sans_bold"
+                    android:maxLines="1"
+                    android:text="@string/session_voided_transaction"
+                    android:textAlignment="textStart"
+                    android:textSize="14sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:layout_marginVertical="18sp"
+                    android:background="@color/md_dark_primary" />
+
+                <TextView
+                    android:id="@+id/tv_session_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:drawableEnd="@drawable/round_keyboard_arrow_right_24"
+                    android:drawableTint="@color/md_dark_primary"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/nunito_sans_bold"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:maxLines="1"
+                    android:text="@string/session"
+                    android:textAlignment="textStart"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/tv_session"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginTop="6dp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/nunito_sans_bold"
+                    android:maxLines="1"
+                    android:text="@string/rp"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/md_dark_primary"
+                    android:textSize="20sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:layout_marginVertical="18sp"
+                    android:background="@color/md_dark_primary" />
+
+                <TextView
+                    android:id="@+id/tv_top_product_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/nunito_sans_bold"
+                    android:maxLines="1"
+                    android:text="@string/top_product"
+                    android:textAlignment="textStart"
+                    android:textSize="18sp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_top_product"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="12dp"
+                    tools:itemCount="5"
+                    tools:listitem="@layout/layout_top_product_item" />
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <include
+        android:id="@+id/state_layout"
+        layout="@layout/state"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+</FrameLayout>

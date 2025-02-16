@@ -12,6 +12,7 @@ import com.iyam.mycash.databinding.FragmentManageBinding
 import com.iyam.mycash.ui.manage.category.CategoryActivity
 import com.iyam.mycash.ui.manage.product.AddProductActivity
 import com.iyam.mycash.ui.manage.product.ProductListActivity
+import com.iyam.mycash.ui.manage.statement.StatementActivity
 
 class ManageFragment : Fragment() {
 
@@ -49,6 +50,18 @@ class ManageFragment : Fragment() {
         binding.productManagement.btn.setOnClickListener {
             navigateToAddProduct()
         }
+
+        binding.statementManagement.root.setOnClickListener {
+            navigateToStatement()
+        }
+        binding.statementManagement.btn.setOnClickListener {
+            navigateToStatement()
+        }
+    }
+
+    private fun navigateToStatement() {
+        val intent = Intent(requireActivity(), StatementActivity::class.java)
+        startActivity(intent)
     }
 
     private fun navigateToAddProduct() {

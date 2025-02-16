@@ -17,7 +17,7 @@ import com.github.dhaval2404.imagepicker.ImagePicker
 import com.iyam.mycash.R
 import com.iyam.mycash.databinding.ActivityOutletDataUpdateBinding
 import com.iyam.mycash.model.Outlet
-import com.iyam.mycash.ui.main.MainActivity
+import com.iyam.mycash.ui.main.MainViewModel
 import com.iyam.mycash.ui.outlet.OutletViewModel
 import com.iyam.mycash.utils.ApiException
 import com.iyam.mycash.utils.proceedWhen
@@ -38,6 +38,7 @@ class OutletDataUpdateActivity : AppCompatActivity() {
         )
     }
     private val outletViewModel: OutletViewModel by viewModel()
+    private val mainViewModel: MainViewModel by viewModel()
     private var getFile: File? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,10 +68,11 @@ class OutletDataUpdateActivity : AppCompatActivity() {
                     binding.formLayout.btn.isVisible = true
                     binding.formLayout.btn.isEnabled = false
                     it.payload?.let {
+                        mainViewModel.setOutlet(it)
                         Toast.makeText(this, "Outlet updated successfully", Toast.LENGTH_SHORT)
                             .show()
                     }
-                    navigateToMain()
+                    finish()
                 },
                 doOnLoading = {
                     binding.formLayout.loading.isVisible = true
@@ -87,14 +89,6 @@ class OutletDataUpdateActivity : AppCompatActivity() {
                 }
             )
         }
-    }
-
-    private fun navigateToMain() {
-        val intent = Intent(this, MainActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        intent.putExtra(MainActivity.EXTRA_DESTINATION, MainActivity.DEST_SETTINGS)
-        startActivity(intent)
-        finish()
     }
 
     private fun setOnClickListener() {
