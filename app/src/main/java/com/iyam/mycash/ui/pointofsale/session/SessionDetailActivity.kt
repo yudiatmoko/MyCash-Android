@@ -204,12 +204,23 @@ class SessionDetailActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.share_session_menu, menu)
+        val isCheckOutTimeNullOrBlank = session?.checkOutTime.isNullOrBlank()
+        menu?.findItem(R.id.share_session)?.isEnabled = !isCheckOutTimeNullOrBlank
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.share_session) doShareReceipt()
-        return super.onOptionsItemSelected(item)
+        return when (item.itemId) {
+            R.id.share_session -> {
+                if (!session?.checkOutTime.isNullOrBlank()) {
+                    doShareReceipt()
+                    true
+                } else {
+                    false
+                }
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     private fun doShareReceipt() {

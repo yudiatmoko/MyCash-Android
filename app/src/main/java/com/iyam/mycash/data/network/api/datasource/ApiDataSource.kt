@@ -14,6 +14,10 @@ import com.iyam.mycash.data.network.api.model.session.RecapSessionRequest
 import com.iyam.mycash.data.network.api.model.session.SessionRequest
 import com.iyam.mycash.data.network.api.model.session.SessionResponse
 import com.iyam.mycash.data.network.api.model.session.SessionsResponse
+import com.iyam.mycash.data.network.api.model.transaction.TransactionResponse
+import com.iyam.mycash.data.network.api.model.transaction.TransactionsResponse
+import com.iyam.mycash.data.network.api.model.transaction.create.CreateTransactionResponse
+import com.iyam.mycash.data.network.api.model.transaction.create.TransactionRequest
 import com.iyam.mycash.data.network.api.model.uploadimage.UploadImageResponse
 import com.iyam.mycash.data.network.api.model.user.UserResponse
 import com.iyam.mycash.data.network.api.model.user.login.LoginRequest
@@ -98,7 +102,8 @@ interface ApiDataSource {
     suspend fun productsByOutlet(
         outletId: String,
         name: String? = null,
-        slug: String? = null
+        slug: String? = null,
+        status: String? = null
     ): ProductsResponse
 
     suspend fun deleteProduct(
@@ -133,8 +138,31 @@ interface ApiDataSource {
         order: String?
     ): RecapResponse
 
+    suspend fun addTransaction(
+        request: TransactionRequest
+    ): CreateTransactionResponse
+
+    suspend fun voidTransaction(
+        id: String
+    ): BaseResponse
+
+    suspend fun transactionById(
+        id: String
+    ): TransactionResponse
+
+    suspend fun transactionsBySession(
+        sessionId: String,
+        number: String?,
+        order: String?
+    ): TransactionsResponse
+
     suspend fun uploadSessionImage(
         sessionId: String,
+        image: MultipartBody.Part
+    ): UploadImageResponse
+
+    suspend fun uploadTransactionImage(
+        transactionId: String,
         image: MultipartBody.Part
     ): UploadImageResponse
 }
@@ -279,12 +307,14 @@ class ApiDataSourceImpl(
     override suspend fun productsByOutlet(
         outletId: String,
         name: String?,
-        slug: String?
+        slug: String?,
+        status: String?
     ): ProductsResponse {
         return service.productsByOutlet(
             outletId,
             name,
-            slug
+            slug,
+            status
         )
     }
 
@@ -321,10 +351,37 @@ class ApiDataSourceImpl(
         return service.recapByOutlet(outletId, startDate, endDate, order)
     }
 
+    override suspend fun addTransaction(request: TransactionRequest): CreateTransactionResponse {
+        return service.createTransaction(request)
+    }
+
+    override suspend fun voidTransaction(id: String): BaseResponse {
+        return service.voidTransaction(id)
+    }
+
+    override suspend fun transactionById(id: String): TransactionResponse {
+        return service.transactionById(id)
+    }
+
+    override suspend fun transactionsBySession(
+        sessionId: String,
+        number: String?,
+        order: String?
+    ): TransactionsResponse {
+        return service.transactionsBySession(sessionId, number, order)
+    }
+
     override suspend fun uploadSessionImage(
         sessionId: String,
         image: MultipartBody.Part
     ): UploadImageResponse {
         return service.uploadSessionImage(sessionId, image)
+    }
+
+    override suspend fun uploadTransactionImage(
+        transactionId: String,
+        image: MultipartBody.Part
+    ): UploadImageResponse {
+        return service.uploadTransactionImage(transactionId, image)
     }
 }

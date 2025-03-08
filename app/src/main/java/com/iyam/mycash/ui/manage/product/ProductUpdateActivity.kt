@@ -5,6 +5,8 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
@@ -22,14 +24,15 @@ import com.iyam.mycash.model.Product
 import com.iyam.mycash.ui.main.MainViewModel
 import com.iyam.mycash.ui.manage.ManageViewModel
 import com.iyam.mycash.utils.ApiException
+import com.iyam.mycash.utils.editTextFormatPrice
 import com.iyam.mycash.utils.proceedWhen
+import com.iyam.mycash.utils.toCurrencyFormat
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.File
-import kotlin.math.roundToInt
 
 class ProductUpdateActivity : AppCompatActivity() {
 
@@ -68,6 +71,27 @@ class ProductUpdateActivity : AppCompatActivity() {
         setCategoryDropdown()
         observeUpdateProduct()
         setOnClickListener()
+        priceEditTextListener()
+    }
+
+    private fun priceEditTextListener() {
+        binding.layoutProductForm.etProductPrice.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+            override fun afterTextChanged(editable: Editable?) {
+                binding.layoutProductForm.etProductPrice.removeTextChangedListener(this)
+
+                val originalString = editable.toString()
+                val formattedString = editTextFormatPrice(originalString)
+
+                binding.layoutProductForm.etProductPrice.setText(formattedString)
+                binding.layoutProductForm.etProductPrice.setSelection(formattedString.length)
+
+                binding.layoutProductForm.etProductPrice.addTextChangedListener(this)
+            }
+        })
     }
 
     private fun observeUpdateProduct() {
@@ -179,7 +203,8 @@ class ProductUpdateActivity : AppCompatActivity() {
             val productName = binding.layoutProductForm.etProductName.text.toString().trim()
             val productDescription =
                 binding.layoutProductForm.etProductDescription.text.toString().trim()
-            val productPrice = binding.layoutProductForm.etProductPrice.text.toString().trim()
+            val productPrice = binding.layoutProductForm.etProductPrice.text.toString()
+                .replace("[^\\d]".toRegex(), "")
             val productStock = binding.layoutProductForm.etProductStock.text.toString().trim()
             val productStatus = status
             val productCategory = categoryId
@@ -340,7 +365,7 @@ class ProductUpdateActivity : AppCompatActivity() {
             }
             binding.layoutProductForm.etProductName.setText(product.name)
             binding.layoutProductForm.etProductDescription.setText(product.description)
-            binding.layoutProductForm.etProductPrice.setText(product.price?.roundToInt().toString())
+            binding.layoutProductForm.etProductPrice.setText(product.price?.toCurrencyFormat())
             if (product.image.isNullOrBlank()) {
                 binding.layoutProductForm.ivProductPhoto.load(R.drawable.img_placeholder_general)
             } else {

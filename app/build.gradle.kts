@@ -130,4 +130,9 @@ dependencies {
     // qr-code
     implementation("com.github.androidmads:QRGenerator:1.0.5")
     implementation("com.google.zxing:core:3.3.2")
+    // room db
+    val room_version = "2.6.1"
+    implementation("androidx.room:room-runtime:$room_version")
+    ksp("androidx.room:room-compiler:$room_version")
+    implementation("androidx.room:room-ktx:$room_version")
 }

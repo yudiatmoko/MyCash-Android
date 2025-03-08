@@ -15,6 +15,7 @@ import com.iyam.mycash.databinding.FragmentPointOfSaleBinding
 import com.iyam.mycash.ui.main.MainViewModel
 import com.iyam.mycash.ui.pointofsale.session.AddSessionActivity
 import com.iyam.mycash.ui.pointofsale.session.SessionActivity
+import com.iyam.mycash.ui.pointofsale.transaction.productlist.TransactionProductListActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PointOfSaleFragment : Fragment() {
@@ -116,6 +117,8 @@ class PointOfSaleFragment : Fragment() {
     }
 
     private fun navigateToTransaction() {
+        val intent = Intent(requireContext(), TransactionProductListActivity::class.java)
+        requireActivity().startActivity(intent)
     }
 
     private fun setOnClickListener() {

@@ -75,9 +75,14 @@ class ManageViewModel(
     val products: LiveData<ResultWrapper<List<Product>>>
         get() = _products
 
-    fun getProductsByOutlet(outletId: String, name: String? = null, slug: String? = null) {
+    fun getProductsByOutlet(
+        outletId: String,
+        name: String? = null,
+        slug: String? = null,
+        status: String? = null
+    ) {
         viewModelScope.launch(Dispatchers.IO) {
-            productRepo.productsByOutlet(outletId, name, slug).collect {
+            productRepo.productsByOutlet(outletId, name, slug, status).collect {
                 _products.postValue(it)
             }
         }
