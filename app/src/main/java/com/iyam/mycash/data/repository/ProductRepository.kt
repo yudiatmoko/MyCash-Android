@@ -44,7 +44,8 @@ interface ProductRepository {
     suspend fun productsByOutlet(
         outletId: String,
         name: String?,
-        slug: String?
+        slug: String?,
+        status: String?
     ): Flow<ResultWrapper<List<Product>>>
 
     suspend fun deleteProduct(id: String): Flow<ResultWrapper<String>>
@@ -127,10 +128,11 @@ class ProductRepositoryImpl(
     override suspend fun productsByOutlet(
         outletId: String,
         name: String?,
-        slug: String?
+        slug: String?,
+        status: String?
     ): Flow<ResultWrapper<List<Product>>> {
         return proceedFlow {
-            dataSource.productsByOutlet(outletId, name, slug).data.toProductList()
+            dataSource.productsByOutlet(outletId, name, slug, status).data.toProductList()
         }.catch {
             emit(ResultWrapper.Error(Exception(it)))
         }.onStart {

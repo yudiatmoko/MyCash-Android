@@ -21,10 +21,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/main_receipt"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            android:layout_height="wrap_content">
 
             <com.vipulasri.ticketview.TicketView
                 android:id="@+id/ticketView"
@@ -39,8 +36,7 @@
                 app:ticketBorderWidth="2dp"
                 app:ticketCornerRadius="12dp"
                 app:ticketCornerType="rounded"
-                app:ticketOrientation="horizontal"
-                app:ticketScallopPositionPercent="20"
+                app:ticketOrientation="vertical"
                 app:ticketScallopRadius="10dp"
                 app:ticketShowBorder="true"
                 app:ticketShowDivider="false" />
@@ -48,9 +44,10 @@
             <LinearLayout
                 android:id="@+id/card_detail_transaction"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:padding="12dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -484,6 +481,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/nunito_sans_medium"
+                    android:layout_marginBottom="6dp"
                     android:text="@string/recap_by"
                     android:textAlignment="center"
                     android:textSize="14sp" />

@@ -26,6 +26,7 @@ class AuthInterceptor(
             runBlocking {
                 userPref.removeUserToken()
                 userPref.removeAuth()
+                userPref.removeOutlet()
             }
         }
 

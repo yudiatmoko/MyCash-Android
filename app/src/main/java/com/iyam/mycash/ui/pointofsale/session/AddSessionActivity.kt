@@ -1,6 +1,8 @@
 package com.iyam.mycash.ui.pointofsale.session
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
@@ -15,6 +17,7 @@ import com.iyam.mycash.databinding.ActivityAddSessionBinding
 import com.iyam.mycash.ui.main.MainViewModel
 import com.iyam.mycash.ui.pointofsale.PointOfSaleViewModel
 import com.iyam.mycash.utils.ApiException
+import com.iyam.mycash.utils.editTextFormatPrice
 import com.iyam.mycash.utils.getTodayDate
 import com.iyam.mycash.utils.getTodayDateForTitle
 import com.iyam.mycash.utils.proceedWhen
@@ -51,6 +54,27 @@ class AddSessionActivity : AppCompatActivity() {
         setShiftDropdown()
         setOnClickListener()
         observeAddSession()
+        startingCashEditTextListener()
+    }
+
+    private fun startingCashEditTextListener() {
+        binding.layoutSessionForm.etStartingCash.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+            override fun afterTextChanged(editable: Editable?) {
+                binding.layoutSessionForm.etStartingCash.removeTextChangedListener(this)
+
+                val originalString = editable.toString()
+                val formattedString = editTextFormatPrice(originalString)
+
+                binding.layoutSessionForm.etStartingCash.setText(formattedString)
+                binding.layoutSessionForm.etStartingCash.setSelection(formattedString.length)
+
+                binding.layoutSessionForm.etStartingCash.addTextChangedListener(this)
+            }
+        })
     }
 
     private fun observeAddSession() {
@@ -96,13 +120,14 @@ class AddSessionActivity : AppCompatActivity() {
             val sessionShift = shift
             val sessionOutlet = outletId
             val sessionUser = userId
-            val productPrice = binding.layoutSessionForm.etStartingCash.text.toString().toDouble()
+            val startingCash = binding.layoutSessionForm.etStartingCash.text.toString()
+                .replace("[^\\d]".toRegex(), "")
             posViewModel.doAddSession(
                 SessionRequest(
                     date = sessionDate,
                     outletId = sessionOutlet.orEmpty(),
                     shift = sessionShift.orEmpty(),
-                    startingCash = productPrice,
+                    startingCash = startingCash.toDouble(),
                     userId = sessionUser.orEmpty()
                 )
             )

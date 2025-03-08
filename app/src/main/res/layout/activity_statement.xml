@@ -91,45 +91,36 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
-                    android:drawableEnd="@drawable/round_keyboard_arrow_right_24"
-                    android:drawableTint="@color/md_dark_primary"
                     android:ellipsize="end"
                     android:fontFamily="@font/nunito_sans_bold"
                     android:maxLines="1"
                     android:text="@string/revenue"
                     android:textAlignment="textStart"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    app:drawableEndCompat="@drawable/round_keyboard_arrow_right_24"
+                    app:drawableTint="@color/md_dark_primary" />
 
-                <LinearLayout
+                <TextView
+                    android:id="@+id/tv_revenue"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="6dp"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/nunito_sans_bold"
+                    android:maxLines="1"
+                    android:text="@string/rp"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/md_dark_primary"
+                    android:textSize="20sp" />
+
+                <include
+                    android:id="@+id/payment_item"
+                    layout="@layout/layout_payment_item"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:weightSum="2">
-
-                    <TextView
-                        android:id="@+id/tv_revenue"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:ellipsize="end"
-                        android:fontFamily="@font/nunito_sans_bold"
-                        android:maxLines="1"
-                        android:text="@string/rp"
-                        android:textAlignment="textStart"
-                        android:textColor="@color/md_dark_primary"
-                        android:textSize="20sp" />
-
-                    <include
-                        android:id="@+id/payment_item"
-                        layout="@layout/layout_payment_item"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="end"
-                        android:layout_weight="1" />
-
-                </LinearLayout>
+                    android:layout_marginTop="6dp"
+                    android:layout_weight="1" />
 
                 <View
                     android:layout_width="match_parent"

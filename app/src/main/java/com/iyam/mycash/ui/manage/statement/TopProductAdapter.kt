@@ -69,7 +69,7 @@ class TopProductAdapter(
         override fun bind(item: TopProductDataRecap) {
             binding.tvProductName.text = item.name
             binding.tvTransactionSum.text =
-                context.getString(R.string.transaction_count, item.quantity)
+                context.getString(R.string.pcs_count, item.quantity)
         }
     }
 }

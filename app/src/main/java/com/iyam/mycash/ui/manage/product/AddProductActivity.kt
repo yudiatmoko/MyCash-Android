@@ -6,6 +6,8 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
@@ -26,6 +28,7 @@ import com.iyam.mycash.ui.main.MainViewModel
 import com.iyam.mycash.ui.manage.ManageViewModel
 import com.iyam.mycash.ui.manage.category.CategoryActivity
 import com.iyam.mycash.utils.ApiException
+import com.iyam.mycash.utils.editTextFormatPrice
 import com.iyam.mycash.utils.proceedWhen
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -70,6 +73,27 @@ class AddProductActivity : AppCompatActivity() {
         observeAddProduct()
         setCategoryDropdown()
         setOnClickListener()
+        priceEditTextListener()
+    }
+
+    private fun priceEditTextListener() {
+        binding.layoutProductForm.etProductPrice.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+            override fun afterTextChanged(editable: Editable?) {
+                binding.layoutProductForm.etProductPrice.removeTextChangedListener(this)
+
+                val originalString = editable.toString()
+                val formattedString = editTextFormatPrice(originalString)
+
+                binding.layoutProductForm.etProductPrice.setText(formattedString)
+                binding.layoutProductForm.etProductPrice.setSelection(formattedString.length)
+
+                binding.layoutProductForm.etProductPrice.addTextChangedListener(this)
+            }
+        })
     }
 
     private fun observeAddProduct() {
@@ -212,7 +236,8 @@ class AddProductActivity : AppCompatActivity() {
             val productName = binding.layoutProductForm.etProductName.text.toString().trim()
             val productDescription =
                 binding.layoutProductForm.etProductDescription.text.toString().trim()
-            val productPrice = binding.layoutProductForm.etProductPrice.text.toString().trim()
+            val productPrice = binding.layoutProductForm.etProductPrice.text.toString()
+                .replace("[^\\d]".toRegex(), "")
             val productStock = binding.layoutProductForm.etProductStock.text.toString().trim()
             val productStatus = status
             val productCategory = categoryId

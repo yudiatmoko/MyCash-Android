@@ -17,6 +17,10 @@ import com.iyam.mycash.data.network.api.model.session.RecapSessionRequest
 import com.iyam.mycash.data.network.api.model.session.SessionRequest
 import com.iyam.mycash.data.network.api.model.session.SessionResponse
 import com.iyam.mycash.data.network.api.model.session.SessionsResponse
+import com.iyam.mycash.data.network.api.model.transaction.TransactionResponse
+import com.iyam.mycash.data.network.api.model.transaction.TransactionsResponse
+import com.iyam.mycash.data.network.api.model.transaction.create.CreateTransactionResponse
+import com.iyam.mycash.data.network.api.model.transaction.create.TransactionRequest
 import com.iyam.mycash.data.network.api.model.uploadimage.UploadImageResponse
 import com.iyam.mycash.data.network.api.model.user.UserResponse
 import com.iyam.mycash.data.network.api.model.user.login.LoginRequest
@@ -171,7 +175,8 @@ interface MyCashApiService {
     suspend fun productsByOutlet(
         @Path("outletId") outletId: String,
         @Query("name") name: String? = null,
-        @Query("slug") slug: String? = null
+        @Query("slug") slug: String? = null,
+        @Query("status") status: String? = null
     ): ProductsResponse
 
     @DELETE("product/{id}")
@@ -213,6 +218,28 @@ interface MyCashApiService {
         @Query("order") order: String? = null
     ): RecapResponse
 
+    @POST("transaction")
+    suspend fun createTransaction(
+        @Body request: TransactionRequest
+    ): CreateTransactionResponse
+
+    @POST("transaction/void/{id}")
+    suspend fun voidTransaction(
+        @Path("id") id: String
+    ): BaseResponse
+
+    @GET("transaction/{id}")
+    suspend fun transactionById(
+        @Path("id") id: String
+    ): TransactionResponse
+
+    @GET("transaction/session/{sessionId}")
+    suspend fun transactionsBySession(
+        @Path("sessionId") sessionId: String,
+        @Query("number") number: String? = null,
+        @Query("order") order: String? = null
+    ): TransactionsResponse
+
     @Multipart
     @POST("receipt-image/session/{sessionId}")
     suspend fun uploadSessionImage(
@@ -220,6 +247,7 @@ interface MyCashApiService {
         @Part image: MultipartBody.Part
     ): UploadImageResponse
 
+    @Multipart
     @POST("receipt-image/transaction/{transactionId}")
     suspend fun uploadTransactionImage(
         @Path("transactionId") transactionId: String,

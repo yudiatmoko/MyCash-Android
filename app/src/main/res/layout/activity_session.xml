@@ -75,52 +75,6 @@
 
             </com.google.android.material.button.MaterialButtonToggleGroup>
 
-            <!--    <LinearLayout-->
-            <!--        android:id="@+id/ll_date"-->
-            <!--        android:layout_width="match_parent"-->
-            <!--        android:layout_height="wrap_content"-->
-            <!--        android:orientation="horizontal"-->
-            <!--        android:weightSum="2">-->
-
-            <!--        <Button-->
-            <!--            android:id="@+id/btn_start_date"-->
-            <!--            style="@style/RoundedButton"-->
-            <!--            android:layout_width="0dp"-->
-            <!--            android:layout_height="wrap_content"-->
-            <!--            android:layout_gravity="center"-->
-            <!--            android:layout_weight="1"-->
-            <!--            android:ellipsize="end"-->
-            <!--            android:fontFamily="@font/nunito_sans_bold"-->
-            <!--            android:maxLines="2"-->
-            <!--            android:text="@string/input_date"-->
-            <!--            android:textAllCaps="false"-->
-            <!--            android:textSize="16sp" />-->
-
-            <!--        <TextView-->
-            <!--            android:layout_width="wrap_content"-->
-            <!--            android:layout_height="wrap_content"-->
-            <!--            android:layout_gravity="center"-->
-            <!--            android:layout_marginHorizontal="12dp"-->
-            <!--            android:text="@string/dash"-->
-            <!--            android:textAlignment="center"-->
-            <!--            android:textSize="20sp" />-->
-
-            <!--        <Button-->
-            <!--            android:id="@+id/btn_end_date"-->
-            <!--            style="@style/RoundedButton"-->
-            <!--            android:layout_width="0dp"-->
-            <!--            android:layout_height="wrap_content"-->
-            <!--            android:layout_gravity="center"-->
-            <!--            android:layout_weight="1"-->
-            <!--            android:ellipsize="end"-->
-            <!--            android:fontFamily="@font/nunito_sans_bold"-->
-            <!--            android:maxLines="2"-->
-            <!--            android:text="@string/input_date"-->
-            <!--            android:textAllCaps="false"-->
-            <!--            android:textSize="16sp" />-->
-
-            <!--    </LinearLayout>-->
-
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_sorting"
                 style="@style/RoundedDropdown"

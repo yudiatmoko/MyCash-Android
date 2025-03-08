@@ -18,6 +18,19 @@
         android:theme="@style/Theme.MyCash"
         tools:targetApi="31">
         <activity
+            android:name=".ui.pointofsale.transaction.detail.TransactionDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.pointofsale.transaction.PaymentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.pointofsale.transaction.cartlist.CartActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.pointofsale.transaction.productlist.TransactionProductListActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
             android:name=".ui.manage.statement.StatementActivity"
             android:exported="false" />
         <activity
