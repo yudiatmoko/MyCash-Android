@@ -1,10 +1,15 @@
 package com.iyam.mycash.ui.settings
 
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import coil.load
@@ -150,10 +155,7 @@ class SettingsFragment : Fragment() {
 
     private fun setOnClickListener() {
         binding.btnLogout.setOnClickListener {
-            mainViewModel.removeUserToken()
-            mainViewModel.removeAuth()
-            mainViewModel.removeOutlet()
-            requireActivity().finish()
+            showDialog()
         }
 
         binding.btnOutletList.setOnClickListener {
@@ -172,6 +174,73 @@ class SettingsFragment : Fragment() {
         binding.outletSetting.mainLayout.setOnClickListener {
             navigateToOutletUpdate()
         }
+
+        binding.printerSetting.mainLayout.setOnClickListener {
+            showSoonDialog()
+        }
+
+        binding.billSetting.mainLayout.setOnClickListener {
+            showSoonDialog()
+        }
+    }
+
+    private fun showSoonDialog() {
+        val dialogView =
+            LayoutInflater.from(requireActivity()).inflate(R.layout.layout_dialog, null)
+        val dialog = AlertDialog.Builder(requireActivity())
+            .setView(dialogView)
+            .create()
+        val tvTitle = dialogView.findViewById<TextView>(R.id.tv_title)
+        val tvDesc = dialogView.findViewById<TextView>(R.id.tv_desc)
+        val btnNegative = dialogView.findViewById<Button>(R.id.btn_negative)
+        val btnPositive = dialogView.findViewById<Button>(R.id.btn_positive)
+
+        tvTitle.text = getString(R.string.feature_not_available)
+        tvDesc.text = getString(R.string.feature_not_available_desc)
+        btnNegative.text = getString(R.string.cancel)
+        btnPositive.text = getString(R.string.understand)
+
+        btnNegative.isVisible = false
+        btnPositive.setOnClickListener {
+            dialog.dismiss()
+        }
+        dialog.show()
+    }
+
+    private fun showDialog() {
+        val dialogView =
+            LayoutInflater.from(requireActivity()).inflate(R.layout.layout_dialog, null)
+        val dialog = AlertDialog.Builder(requireActivity())
+            .setView(dialogView)
+            .create()
+        dialog.getWindow()?.setBackgroundDrawableResource(R.drawable.cv_background)
+        dialog.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        val tvTitle = dialogView.findViewById<TextView>(R.id.tv_title)
+        val tvDesc = dialogView.findViewById<TextView>(R.id.tv_desc)
+        val btnNegative = dialogView.findViewById<Button>(R.id.btn_negative)
+        val btnPositive = dialogView.findViewById<Button>(R.id.btn_positive)
+
+        tvTitle.text = getString(R.string.logout)
+        tvDesc.text = getString(R.string.logout_desc)
+        btnNegative.text = getString(R.string.cancel)
+        btnPositive.text = getString(R.string.yes)
+
+        btnNegative.setOnClickListener {
+            dialog.dismiss()
+        }
+        btnPositive.setOnClickListener {
+            doLogout()
+            dialog.dismiss()
+        }
+        dialog.show()
+    }
+
+    private fun doLogout() {
+        mainViewModel.removeUserToken()
+        mainViewModel.removeAuth()
+        mainViewModel.removeOutlet()
+        requireActivity().finish()
     }
 
     private fun navigateToUserUpdate() {

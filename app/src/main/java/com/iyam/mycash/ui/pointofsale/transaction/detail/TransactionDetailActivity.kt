@@ -79,7 +79,8 @@ class TransactionDetailActivity : AppCompatActivity() {
             it.proceedWhen(
                 doOnSuccess = {
                     binding.llBtnVoid.isVisible = false
-                    binding.tvTransactionNumber.text = getString(R.string.session_voided_transaction)
+                    binding.tvTransactionNumber.text =
+                        getString(R.string.session_voided_transaction)
                     binding.tvTransactionNumber.setTextColor(getColor(R.color.md_light_error))
                     it.payload?.let {
                         Toast.makeText(this, "Transaction voided successfully", Toast.LENGTH_SHORT)
@@ -182,12 +183,12 @@ class TransactionDetailActivity : AppCompatActivity() {
                 binding.tvTransactionNumber.setTextColor(getColor(R.color.md_light_error))
             } else {
                 binding.llBtnVoid.isVisible = true
+                binding.tvTransactionNumber.text = it?.number.toString()
             }
             binding.tvOutletName.text = it?.session?.outlet?.name
             binding.tvOutletAddress.text = it?.session?.outlet?.address
             binding.tvOutletCity.text = it?.session?.outlet?.city
             binding.tvOutletPhoneNumber.text = it?.session?.outlet?.phoneNumber
-            binding.tvTransactionNumber.text = it?.number.toString()
             binding.tvDate.text = formatDayWithHours(it?.date.toString())
             binding.tvShift.text =
                 if (it?.session?.shift == "MORNING") {
