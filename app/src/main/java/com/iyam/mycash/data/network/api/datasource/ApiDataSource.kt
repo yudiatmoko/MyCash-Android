@@ -13,7 +13,6 @@ import com.iyam.mycash.data.network.api.model.recap.RecapResponse
 import com.iyam.mycash.data.network.api.model.session.RecapSessionRequest
 import com.iyam.mycash.data.network.api.model.session.SessionRequest
 import com.iyam.mycash.data.network.api.model.session.SessionResponse
-import com.iyam.mycash.data.network.api.model.session.SessionsResponse
 import com.iyam.mycash.data.network.api.model.transaction.TransactionResponse
 import com.iyam.mycash.data.network.api.model.transaction.TransactionsResponse
 import com.iyam.mycash.data.network.api.model.transaction.create.CreateTransactionResponse
@@ -30,8 +29,6 @@ import com.iyam.mycash.data.network.api.model.user.register.RegisterRequest
 import com.iyam.mycash.data.network.api.model.user.register.RegisterResponse
 import com.iyam.mycash.data.network.api.model.user.resetpassword.ResetPasswordRequest
 import com.iyam.mycash.data.network.api.model.user.resetpassword.ResetPasswordResponse
-import com.iyam.mycash.data.network.api.model.user.update.PasswordUpdateRequest
-import com.iyam.mycash.data.network.api.model.user.update.PasswordUpdateResponse
 import com.iyam.mycash.data.network.api.model.user.update.UserUpdateResponse
 import com.iyam.mycash.data.network.api.service.MyCashApiService
 import okhttp3.MultipartBody
@@ -43,7 +40,6 @@ interface ApiDataSource {
     suspend fun generateOtp(request: GenerateOtpRequest): GenerateOtpResponse
     suspend fun verifyOtp(request: VerifyOtpRequest): VerifyOtpResponse
     suspend fun resetPassword(request: ResetPasswordRequest): ResetPasswordResponse
-    suspend fun passwordUpdate(id: String, request: PasswordUpdateRequest): PasswordUpdateResponse
     suspend fun userById(id: String): UserResponse
     suspend fun userUpdate(
         id: String,
@@ -119,18 +115,6 @@ interface ApiDataSource {
         request: RecapSessionRequest
     ): SessionResponse
 
-    suspend fun sessionById(
-        id: String
-    ): SessionResponse
-
-    suspend fun sessionsByOutlet(
-        outletId: String
-    ): SessionsResponse
-
-    suspend fun deleteSession(
-        id: String
-    ): BaseResponse
-
     suspend fun recapByOutlet(
         outletId: String,
         startDate: String?,
@@ -188,13 +172,6 @@ class ApiDataSourceImpl(
 
     override suspend fun resetPassword(request: ResetPasswordRequest): ResetPasswordResponse {
         return service.resetPassword(request)
-    }
-
-    override suspend fun passwordUpdate(
-        id: String,
-        request: PasswordUpdateRequest
-    ): PasswordUpdateResponse {
-        return service.passwordUpdate(id, request)
     }
 
     override suspend fun userById(id: String): UserResponse {
@@ -328,18 +305,6 @@ class ApiDataSourceImpl(
 
     override suspend fun updateSession(id: String, request: RecapSessionRequest): SessionResponse {
         return service.updateSession(id, request)
-    }
-
-    override suspend fun sessionById(id: String): SessionResponse {
-        return service.sessionById(id)
-    }
-
-    override suspend fun sessionsByOutlet(outletId: String): SessionsResponse {
-        return service.sessionsByOutlet(outletId)
-    }
-
-    override suspend fun deleteSession(id: String): BaseResponse {
-        return service.deleteSession(id)
     }
 
     override suspend fun recapByOutlet(

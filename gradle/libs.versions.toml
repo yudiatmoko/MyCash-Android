@@ -36,6 +36,7 @@ shimmer = "0.5.0"
 swiperefreshlayout = "1.1.0"
 ticketview = "1.1.2"
 turbine = "1.0.0"
+junitJupiterVersion = "5.8.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -77,6 +78,7 @@ shimmer = { module = "com.facebook.shimmer:shimmer", version.ref = "shimmer" }
 ticketview = { module = "com.vipulasri:ticketview", version.ref = "ticketview" }
 turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
 gradle = { module = "com.android.tools.build:gradle", version.ref = "gradle" }
+jupiter-junit-jupiter = { group = "org.junit.jupiter", name = "junit-jupiter", version.ref = "junitJupiterVersion" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

@@ -34,7 +34,7 @@ class TransactionActivity : AppCompatActivity() {
         TransactionAdapter(
             context = this,
             onClick = {
-                TransactionDetailActivity.startActivity(this@TransactionActivity, it)
+                TransactionDetailActivity.startActivity(this@TransactionActivity, it, false)
             }
         )
     }

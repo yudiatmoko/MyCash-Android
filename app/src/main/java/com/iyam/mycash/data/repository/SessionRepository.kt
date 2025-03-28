@@ -5,7 +5,6 @@ import com.iyam.mycash.data.network.api.model.recap.RecapResponse
 import com.iyam.mycash.data.network.api.model.session.RecapSessionRequest
 import com.iyam.mycash.data.network.api.model.session.SessionRequest
 import com.iyam.mycash.data.network.api.model.session.toSession
-import com.iyam.mycash.data.network.api.model.session.toSessionList
 import com.iyam.mycash.model.Session
 import com.iyam.mycash.utils.ResultWrapper
 import com.iyam.mycash.utils.proceedFlow
@@ -21,10 +20,6 @@ interface SessionRepository {
         id: String,
         request: RecapSessionRequest
     ): Flow<ResultWrapper<Session>>
-
-    suspend fun sessionById(id: String): Flow<ResultWrapper<Session>>
-    suspend fun sessionsByOutlet(outletId: String): Flow<ResultWrapper<List<Session>>>
-    suspend fun deleteSession(id: String): Flow<ResultWrapper<String>>
     suspend fun recapByOutlet(
         outletId: String,
         startDate: String?,
@@ -58,36 +53,6 @@ class SessionRepositoryImpl(
     ): Flow<ResultWrapper<Session>> {
         return proceedFlow {
             dataSource.updateSession(id, request).data.toSession()
-        }.catch {
-            emit(ResultWrapper.Error(Exception(it)))
-        }.onStart {
-            emit(ResultWrapper.Loading())
-        }
-    }
-
-    override suspend fun sessionById(id: String): Flow<ResultWrapper<Session>> {
-        return proceedFlow {
-            dataSource.sessionById(id).data.toSession()
-        }.catch {
-            emit(ResultWrapper.Error(Exception(it)))
-        }.onStart {
-            emit(ResultWrapper.Loading())
-        }
-    }
-
-    override suspend fun sessionsByOutlet(outletId: String): Flow<ResultWrapper<List<Session>>> {
-        return proceedFlow {
-            dataSource.sessionsByOutlet(outletId).data.toSessionList()
-        }.catch {
-            emit(ResultWrapper.Error(Exception(it)))
-        }.onStart {
-            emit(ResultWrapper.Loading())
-        }
-    }
-
-    override suspend fun deleteSession(id: String): Flow<ResultWrapper<String>> {
-        return proceedFlow {
-            dataSource.deleteSession(id).message
         }.catch {
             emit(ResultWrapper.Error(Exception(it)))
         }.onStart {

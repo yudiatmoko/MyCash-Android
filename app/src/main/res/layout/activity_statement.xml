@@ -93,6 +93,7 @@
                     android:layout_gravity="start"
                     android:ellipsize="end"
                     android:fontFamily="@font/nunito_sans_bold"
+                    android:foreground="?android:attr/selectableItemBackground"
                     android:maxLines="1"
                     android:text="@string/revenue"
                     android:textAlignment="textStart"
@@ -230,15 +231,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
-                    android:drawableEnd="@drawable/round_keyboard_arrow_right_24"
-                    android:drawableTint="@color/md_dark_primary"
                     android:ellipsize="end"
                     android:fontFamily="@font/nunito_sans_bold"
                     android:foreground="?android:attr/selectableItemBackground"
                     android:maxLines="1"
                     android:text="@string/session"
                     android:textAlignment="textStart"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    app:drawableEndCompat="@drawable/round_keyboard_arrow_right_24"
+                    app:drawableTint="@color/md_dark_primary" />
 
                 <TextView
                     android:id="@+id/tv_session"

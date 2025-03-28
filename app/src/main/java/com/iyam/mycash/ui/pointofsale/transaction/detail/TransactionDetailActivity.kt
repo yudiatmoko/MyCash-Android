@@ -176,13 +176,16 @@ class TransactionDetailActivity : AppCompatActivity() {
 
     private fun setupContent() {
         transaction = intent.getParcelableExtra(EXTRA_TRANSACTION)
+        val isFromTransactionCompleted =
+            intent.getBooleanExtra(EXTRA_FROM_TRANSACTION_COMPLETED, false)
+
         transaction.let {
             if (transaction?.isVoided == true) {
                 binding.llBtnVoid.isVisible = false
                 binding.tvTransactionNumber.text = getString(R.string.session_voided_transaction)
                 binding.tvTransactionNumber.setTextColor(getColor(R.color.md_light_error))
             } else {
-                binding.llBtnVoid.isVisible = true
+                binding.llBtnVoid.isVisible = isFromTransactionCompleted
                 binding.tvTransactionNumber.text = it?.number.toString()
             }
             binding.tvOutletName.text = it?.session?.outlet?.name
@@ -249,9 +252,15 @@ class TransactionDetailActivity : AppCompatActivity() {
 
     companion object {
         private const val EXTRA_TRANSACTION = "extra_transaction"
-        fun startActivity(context: Context, transaction: Transaction) {
+        private const val EXTRA_FROM_TRANSACTION_COMPLETED = "extra_from_transaction_completed"
+        fun startActivity(
+            context: Context,
+            transaction: Transaction,
+            isFromTransactionCompleted: Boolean
+        ) {
             val intent = Intent(context, TransactionDetailActivity::class.java)
             intent.putExtra(EXTRA_TRANSACTION, transaction)
+            intent.putExtra(EXTRA_FROM_TRANSACTION_COMPLETED, isFromTransactionCompleted)
             context.startActivity(intent)
         }
     }

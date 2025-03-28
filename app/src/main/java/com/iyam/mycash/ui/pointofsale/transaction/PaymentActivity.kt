@@ -154,7 +154,8 @@ class PaymentActivity : AppCompatActivity() {
                     it.payload?.let { transaction ->
                         TransactionDetailActivity.startActivity(
                             this,
-                            transaction
+                            transaction,
+                            true
                         )
                     }
                     finish()
