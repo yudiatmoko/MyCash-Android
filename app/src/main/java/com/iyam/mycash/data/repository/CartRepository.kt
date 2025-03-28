@@ -34,7 +34,6 @@ interface CartRepository {
     suspend fun setCartQuantity(item: Cart): Flow<ResultWrapper<Boolean>>
     suspend fun deleteCart(item: Cart): Flow<ResultWrapper<Boolean>>
     suspend fun deleteAll(): Flow<ResultWrapper<Boolean>>
-//    suspend fun order(items: List<Cart>): Flow<ResultWrapper<Boolean>>
 }
 
 class CartRepositoryImpl(
@@ -168,19 +167,4 @@ class CartRepositoryImpl(
     override suspend fun deleteAll(): Flow<ResultWrapper<Boolean>> {
         return proceedFlow { databaseDataSource.deleteAll() > 0 }
     }
-
-//    override suspend fun order(items: List<Cart>): Flow<ResultWrapper<Boolean>> {
-//        return proceedFlow {
-//            val orderItems = items.map {
-//                OrderItemRequest(it.itemNotes, it.menuPrice.toInt(), it.menuName, it.itemQuantity)
-//            }
-//
-//            val orderRequest = OrderRequest(
-//                orderItems,
-//                total = null,
-//                username = null
-//            )
-//            restaurantApiDataSource.createOrder(orderRequest).status == true
-//        }
-//    }
 }

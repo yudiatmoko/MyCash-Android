@@ -8,7 +8,6 @@ import com.iyam.mycash.data.network.api.model.user.register.RegisterRequest
 import com.iyam.mycash.data.network.api.model.user.resetpassword.ResetPasswordRequest
 import com.iyam.mycash.data.network.api.model.user.toAuth
 import com.iyam.mycash.data.network.api.model.user.toUser
-import com.iyam.mycash.data.network.api.model.user.update.PasswordUpdateRequest
 import com.iyam.mycash.model.Auth
 import com.iyam.mycash.model.User
 import com.iyam.mycash.utils.ResultWrapper
@@ -31,11 +30,6 @@ interface AuthRepository {
         name: RequestBody?,
         phoneNumber: RequestBody?,
         image: MultipartBody.Part?
-    ): Flow<ResultWrapper<User>>
-
-    suspend fun passwordUpdate(
-        id: String,
-        request: PasswordUpdateRequest
     ): Flow<ResultWrapper<User>>
 
     suspend fun userById(id: String): Flow<ResultWrapper<User>>
@@ -107,20 +101,6 @@ class AuthRepositoryImpl(
     ): Flow<ResultWrapper<User>> {
         return proceedFlow {
             dataSource.userUpdate(id, name, phoneNumber, image).data.toUser()
-        }.catch {
-            emit(ResultWrapper.Error(Exception(it)))
-        }.onStart {
-            emit(ResultWrapper.Loading())
-            delay(500)
-        }
-    }
-
-    override suspend fun passwordUpdate(
-        id: String,
-        request: PasswordUpdateRequest
-    ): Flow<ResultWrapper<User>> {
-        return proceedFlow {
-            dataSource.passwordUpdate(id, request).data.toUser()
         }.catch {
             emit(ResultWrapper.Error(Exception(it)))
         }.onStart {

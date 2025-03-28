@@ -14,6 +14,7 @@ import com.iyam.mycash.databinding.ActivityStatementBinding
 import com.iyam.mycash.ui.main.MainViewModel
 import com.iyam.mycash.ui.pointofsale.PointOfSaleViewModel
 import com.iyam.mycash.ui.pointofsale.session.SessionActivity
+import com.iyam.mycash.ui.pointofsale.transaction.TransactionActivity
 import com.iyam.mycash.utils.ApiException
 import com.iyam.mycash.utils.getDateBeforeDays
 import com.iyam.mycash.utils.getDateBeforeDaysForTitle
@@ -68,6 +69,14 @@ class StatementActivity : AppCompatActivity() {
         binding.tvSessionTitle.setOnClickListener {
             navigateToSessionList()
         }
+        binding.tvRevenueTitle.setOnClickListener {
+            navigateToTransactionList()
+        }
+    }
+
+    private fun navigateToTransactionList() {
+        val intent = Intent(this, TransactionActivity::class.java)
+        startActivity(intent)
     }
 
     private fun navigateToSessionList() {

@@ -16,7 +16,6 @@ import com.iyam.mycash.data.network.api.model.recap.RecapResponse
 import com.iyam.mycash.data.network.api.model.session.RecapSessionRequest
 import com.iyam.mycash.data.network.api.model.session.SessionRequest
 import com.iyam.mycash.data.network.api.model.session.SessionResponse
-import com.iyam.mycash.data.network.api.model.session.SessionsResponse
 import com.iyam.mycash.data.network.api.model.transaction.TransactionResponse
 import com.iyam.mycash.data.network.api.model.transaction.TransactionsResponse
 import com.iyam.mycash.data.network.api.model.transaction.create.CreateTransactionResponse
@@ -33,8 +32,6 @@ import com.iyam.mycash.data.network.api.model.user.register.RegisterRequest
 import com.iyam.mycash.data.network.api.model.user.register.RegisterResponse
 import com.iyam.mycash.data.network.api.model.user.resetpassword.ResetPasswordRequest
 import com.iyam.mycash.data.network.api.model.user.resetpassword.ResetPasswordResponse
-import com.iyam.mycash.data.network.api.model.user.update.PasswordUpdateRequest
-import com.iyam.mycash.data.network.api.model.user.update.PasswordUpdateResponse
 import com.iyam.mycash.data.network.api.model.user.update.UserUpdateResponse
 import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
@@ -77,12 +74,6 @@ interface MyCashApiService {
         @Part("phoneNumber") phoneNumber: RequestBody?,
         @Part image: MultipartBody.Part?
     ): UserUpdateResponse
-
-    @PUT("user/{id}/password")
-    suspend fun passwordUpdate(
-        @Path("id") id: String,
-        @Body request: PasswordUpdateRequest
-    ): PasswordUpdateResponse
 
     @GET("user/{id}")
     suspend fun userById(
@@ -194,21 +185,6 @@ interface MyCashApiService {
         @Path("id") id: String,
         @Body request: RecapSessionRequest
     ): SessionResponse
-
-    @GET("session/{id}")
-    suspend fun sessionById(
-        @Path("id") id: String
-    ): SessionResponse
-
-    @GET("session/outlet/{outletId}")
-    suspend fun sessionsByOutlet(
-        @Path("outletId") outletId: String
-    ): SessionsResponse
-
-    @DELETE("session/{id}")
-    suspend fun deleteSession(
-        @Path("id") id: String
-    ): BaseResponse
 
     @GET("recap/{outletId}")
     suspend fun recapByOutlet(
