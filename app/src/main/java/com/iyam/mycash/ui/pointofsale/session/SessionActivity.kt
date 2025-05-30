@@ -202,9 +202,8 @@ class SessionActivity : AppCompatActivity() {
 
     private fun observeData() {
         mainViewModel.sessionLiveData.observe(this) {
-            it?.let {
-                sessionId = it.id
-            }
+            sessionId = it?.id
+            invalidateOptionsMenu()
         }
         mainViewModel.outletLiveData.observe(this) {
             it?.let {

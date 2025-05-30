@@ -50,12 +50,18 @@ class PointOfSaleFragment : Fragment() {
                 binding.sessionManagement.btn.setOnClickListener {
                     showSessionDialog()
                 }
+                binding.transactionManagement.root.setOnClickListener {
+                    navigateToTransactionList()
+                }
             } else {
                 binding.transactionManagement.btn.setOnClickListener {
                     showNoSessionDialog()
                 }
                 binding.sessionManagement.btn.setOnClickListener {
                     navigateToAddSession()
+                }
+                binding.transactionManagement.root.setOnClickListener {
+                    showNoSessionDialog()
                 }
             }
         }
@@ -125,9 +131,6 @@ class PointOfSaleFragment : Fragment() {
     private fun setOnClickListener() {
         binding.sessionManagement.root.setOnClickListener {
             navigateToSession()
-        }
-        binding.transactionManagement.root.setOnClickListener {
-            navigateToTransactionList()
         }
     }
 

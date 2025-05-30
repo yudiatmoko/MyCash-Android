@@ -97,16 +97,13 @@
                     android:maxLines="1"
                     android:text="@string/revenue"
                     android:textAlignment="textStart"
-                    android:textSize="18sp"
-                    app:drawableEndCompat="@drawable/round_keyboard_arrow_right_24"
-                    app:drawableTint="@color/md_dark_primary" />
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/tv_revenue"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="6dp"
-                    android:layout_weight="1"
                     android:ellipsize="end"
                     android:fontFamily="@font/nunito_sans_bold"
                     android:maxLines="1"
@@ -115,13 +112,87 @@
                     android:textColor="@color/md_dark_primary"
                     android:textSize="20sp" />
 
-                <include
-                    android:id="@+id/payment_item"
-                    layout="@layout/layout_payment_item"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:layout_weight="1" />
+                    android:layout_marginTop="12dp"
+                    android:gravity="end"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_qris"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/nunito_sans_bold"
+                            android:maxLines="1"
+                            android:textAlignment="textStart"
+                            android:textColor="@color/md_dark_primary"
+                            android:textSize="14sp"
+                            tools:text="Rp 55.000" />
+
+                        <TextView
+                            android:id="@+id/tv_qris_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start"
+                            android:layout_marginTop="2dp"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/nunito_sans_bold"
+                            android:maxLines="1"
+                            android:text="@string/qris"
+                            android:textAlignment="textStart"
+                            android:textSize="10sp" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="0.5dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginHorizontal="12dp"
+                        android:background="@color/md_dark_primary" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_cash"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/nunito_sans_bold"
+                            android:maxLines="1"
+                            android:textAlignment="textStart"
+                            android:textColor="@color/md_dark_primary"
+                            android:textSize="14sp"
+                            tools:text="Rp 23.000" />
+
+                        <TextView
+                            android:id="@+id/tv_cash_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start"
+                            android:layout_marginTop="2dp"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/nunito_sans_bold"
+                            android:maxLines="1"
+                            android:text="@string/cash"
+                            android:textAlignment="textStart"
+                            android:textSize="10sp" />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
