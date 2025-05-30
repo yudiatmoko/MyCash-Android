@@ -294,7 +294,7 @@ class SessionActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        if (sessionId == null) return false
+        if (sessionId != null) return false
         menuInflater.inflate(R.menu.add_session_menu, menu)
         return true
     }
