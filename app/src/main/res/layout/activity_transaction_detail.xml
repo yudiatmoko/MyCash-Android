@@ -97,6 +97,40 @@
                     android:weightSum="5">
 
                     <TextView
+                        android:id="@+id/tv_ref_title"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/nunito_sans_bold"
+                        android:maxLines="1"
+                        android:text="@string/ref_no"
+                        android:textAlignment="textStart"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/tv_ref"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/nunito_sans_medium"
+                        android:maxLines="1"
+                        android:textAlignment="textEnd"
+                        android:textSize="14sp"
+                        tools:text="@string/session_date_example" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:weightSum="5">
+
+                    <TextView
                         android:id="@+id/tv_date_title"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"

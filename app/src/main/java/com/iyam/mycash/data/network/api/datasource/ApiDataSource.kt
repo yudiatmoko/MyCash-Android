@@ -137,6 +137,7 @@ interface ApiDataSource {
     suspend fun transactionsBySession(
         sessionId: String,
         number: String?,
+        id: String?,
         order: String?
     ): TransactionsResponse
 
@@ -331,9 +332,10 @@ class ApiDataSourceImpl(
     override suspend fun transactionsBySession(
         sessionId: String,
         number: String?,
+        id: String?,
         order: String?
     ): TransactionsResponse {
-        return service.transactionsBySession(sessionId, number, order)
+        return service.transactionsBySession(sessionId, number, id, order)
     }
 
     override suspend fun uploadSessionImage(

@@ -19,6 +19,7 @@ interface TransactionRepository {
     suspend fun transactionList(
         sessionId: String,
         number: String?,
+        id: String?,
         order: String?
     ): Flow<ResultWrapper<List<Transaction>>>
 
@@ -55,10 +56,16 @@ class TransactionRepositoryImpl(
     override suspend fun transactionList(
         sessionId: String,
         number: String?,
+        id: String?,
         order: String?
     ): Flow<ResultWrapper<List<Transaction>>> {
         return proceedFlow {
-            apiDataSource.transactionsBySession(sessionId, number, order).data.toTransactionList()
+            apiDataSource.transactionsBySession(
+                sessionId,
+                number,
+                id,
+                order
+            ).data.toTransactionList()
         }.catch {
             emit(ResultWrapper.Error(Exception(it)))
         }.onStart {

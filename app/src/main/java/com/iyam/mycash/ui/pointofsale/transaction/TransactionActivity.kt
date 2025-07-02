@@ -72,12 +72,7 @@ class TransactionActivity : AppCompatActivity() {
     private fun setupSearchView() {
         binding.svTransaction.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                posViewModel.getTransactionsBySession(
-                    sessionId.orEmpty(),
-                    number = query,
-                    order = sorting
-                )
-                number = query
+                handleSearch(query)
                 return false
             }
 
@@ -85,12 +80,38 @@ class TransactionActivity : AppCompatActivity() {
                 if (newText.isNullOrEmpty()) {
                     posViewModel.getTransactionsBySession(
                         sessionId.orEmpty(),
-                        number = newText,
+                        number = null,
+                        id = null,
+                        order = sorting
+                    )
+                } else {
+                    handleSearch(newText)
+                }
+                return false
+            }
+
+            private fun handleSearch(query: String?) {
+                if (query.isNullOrBlank()) return
+
+                number = null
+                val isNumeric = query.toIntOrNull() != null
+
+                if (isNumeric) {
+                    number = query
+                    posViewModel.getTransactionsBySession(
+                        sessionId.orEmpty(),
+                        number = query,
+                        id = null,
+                        order = sorting
+                    )
+                } else {
+                    posViewModel.getTransactionsBySession(
+                        sessionId.orEmpty(),
+                        number = null,
+                        id = query,
                         order = sorting
                     )
                 }
-                number = newText
-                return false
             }
         })
     }

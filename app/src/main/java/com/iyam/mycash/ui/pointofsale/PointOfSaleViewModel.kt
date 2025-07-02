@@ -188,9 +188,14 @@ class PointOfSaleViewModel(
     val transactionsBySessionResult: LiveData<ResultWrapper<List<Transaction>>>
         get() = _transactionsBySessionResult
 
-    fun getTransactionsBySession(sessionId: String, number: String? = null, order: String? = null) {
+    fun getTransactionsBySession(
+        sessionId: String,
+        number: String? = null,
+        id: String? = null,
+        order: String? = null
+    ) {
         viewModelScope.launch(Dispatchers.IO) {
-            transactionRepository.transactionList(sessionId, number, order).collect {
+            transactionRepository.transactionList(sessionId, number, id, order).collect {
                 _transactionsBySessionResult.postValue(it)
             }
         }

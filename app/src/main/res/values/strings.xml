@@ -212,4 +212,5 @@
     <string name="feature_not_available_desc">Fitur ini masih dalam pengembangan. Nantikan pembaruannya segera!</string>
     <string name="understand">Mengerti</string>
     <string name="transaction_list">Daftar Transaksi</string>
+    <string name="ref_no">Ref No.</string>
 </resources>

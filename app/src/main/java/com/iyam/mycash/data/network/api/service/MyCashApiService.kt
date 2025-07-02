@@ -213,6 +213,7 @@ interface MyCashApiService {
     suspend fun transactionsBySession(
         @Path("sessionId") sessionId: String,
         @Query("number") number: String? = null,
+        @Query("id") id: String? = null,
         @Query("order") order: String? = null
     ): TransactionsResponse
 

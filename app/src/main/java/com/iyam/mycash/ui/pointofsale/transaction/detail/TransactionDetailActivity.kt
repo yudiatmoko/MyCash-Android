@@ -188,6 +188,7 @@ class TransactionDetailActivity : AppCompatActivity() {
                 binding.llBtnVoid.isVisible = isFromTransactionCompleted
                 binding.tvTransactionNumber.text = it?.number.toString()
             }
+            binding.tvRef.text = it?.id.toString()
             binding.tvOutletName.text = it?.session?.outlet?.name
             binding.tvOutletAddress.text = it?.session?.outlet?.address
             binding.tvOutletCity.text = it?.session?.outlet?.city
