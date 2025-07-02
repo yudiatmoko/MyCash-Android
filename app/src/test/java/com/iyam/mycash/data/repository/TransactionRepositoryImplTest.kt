@@ -257,9 +257,9 @@ class TransactionRepositoryImplTest {
             )
         )
 
-        coEvery { datasource.transactionsBySession(any(), any(), any()) } returns mockApiResponse
+        coEvery { datasource.transactionsBySession(any(), any(), any(), any()) } returns mockApiResponse
 
-        repository.transactionList("session-789", null, null).map {
+        repository.transactionList("session-789", null, null, null).map {
             delay(100)
             it
         }.test {
@@ -267,7 +267,7 @@ class TransactionRepositoryImplTest {
             val result = expectMostRecentItem()
             assertTrue(result is ResultWrapper.Success)
             assertEquals(mockApiResponse.data.toTransactionList(), result.payload)
-            coVerify { datasource.transactionsBySession("session-789", null, null) }
+            coVerify { datasource.transactionsBySession("session-789", null, null, null) }
         }
     }
 
@@ -277,18 +277,19 @@ class TransactionRepositoryImplTest {
             datasource.transactionsBySession(
                 any(),
                 any(),
+                any(),
                 any()
             )
         } throws ApiException("Api Exception", 500, null)
 
-        repository.transactionList("session-789", null, null).map {
+        repository.transactionList("session-789", null, null,null).map {
             delay(100)
             it
         }.test {
             delay(1000)
             val result = expectMostRecentItem()
             assertTrue(result is ResultWrapper.Error)
-            coVerify { datasource.transactionsBySession("session-789", null, null) }
+            coVerify { datasource.transactionsBySession("session-789", null, null, null) }
         }
     }
 
