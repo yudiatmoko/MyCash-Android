@@ -213,4 +213,8 @@
     <string name="understand">Mengerti</string>
     <string name="transaction_list">Daftar Transaksi</string>
     <string name="ref_no">Ref No.</string>
+    <string name="awan">Awan</string>
+    <string name="add_new_awan">Lihat awan</string>
+    <string name="accessCode">Kode Akses</string>
+    <string name="text_error_access_code_cannot_empty">Kode akses tidak boleh kosong</string>
 </resources>

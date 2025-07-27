@@ -96,8 +96,9 @@ class SignUpFragment : Fragment() {
         if (isFormValid()) {
             val name = binding.formLayout.etName.text.toString().trim()
             val email = binding.formLayout.etEmail.text.toString().trim()
+            val accessCode = binding.formLayout.etAccessCode.text.toString().trim()
             val password = binding.formLayout.etPassword.text.toString().trim()
-            signUpViewModel.doRegister(RegisterRequest(name, email, password))
+            signUpViewModel.doRegister(RegisterRequest(name, email, accessCode, password))
         }
     }
 
@@ -105,13 +106,26 @@ class SignUpFragment : Fragment() {
         val name = binding.formLayout.etName.text.toString().trim()
         val email = binding.formLayout.etEmail.text.toString().trim()
         val password = binding.formLayout.etPassword.text.toString().trim()
+        val accessCode = binding.formLayout.etAccessCode.text.toString().trim()
         val confirmPassword = binding.formLayout.etConfirmPassword.text.toString().trim()
 
         return checkNameValidation(name) &&
             checkEmailValidation(email) &&
             checkPasswordValidation(password, binding.formLayout.tilPassword) &&
+            checkAccessCodeValidation(accessCode, binding.formLayout.tilAccessCode) &&
             checkPasswordValidation(confirmPassword, binding.formLayout.tilConfirmPassword) &&
             checkPwdAndConfirmPwd(password, confirmPassword)
+    }
+
+    private fun checkAccessCodeValidation(accessCode: String, tilAccessCode: TextInputLayout): Boolean {
+        return if (accessCode.isEmpty()) {
+            tilAccessCode.isErrorEnabled = true
+            tilAccessCode.error = getString(R.string.text_error_access_code_cannot_empty)
+            false
+        } else {
+            tilAccessCode.isErrorEnabled = false
+            true
+        }
     }
 
     private fun checkPwdAndConfirmPwd(password: String, confirmPassword: String): Boolean {
@@ -177,6 +191,7 @@ class SignUpFragment : Fragment() {
     private fun setupSignUpForm() {
         binding.formLayout.tilName.isVisible = true
         binding.formLayout.tilEmail.isVisible = true
+        binding.formLayout.tilAccessCode.isVisible = true
         binding.formLayout.tilPassword.isVisible = true
         binding.formLayout.tilConfirmPassword.isVisible = true
         binding.formLayout.tilOtp.isVisible = false

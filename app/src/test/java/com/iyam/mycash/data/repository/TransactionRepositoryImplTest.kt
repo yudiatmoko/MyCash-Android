@@ -282,7 +282,7 @@ class TransactionRepositoryImplTest {
             )
         } throws ApiException("Api Exception", 500, null)
 
-        repository.transactionList("session-789", null, null,null).map {
+        repository.transactionList("session-789", null, null, null).map {
             delay(100)
             it
         }.test {

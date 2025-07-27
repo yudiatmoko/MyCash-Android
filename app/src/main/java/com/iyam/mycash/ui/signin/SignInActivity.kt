@@ -157,6 +157,7 @@ class SignInActivity : AppCompatActivity() {
 
     private fun setupForm() {
         binding.formLayout.tilName.isVisible = false
+        binding.formLayout.tilAccessCode.isVisible = false
         binding.formLayout.tilEmail.isVisible = true
         binding.formLayout.tilPassword.isVisible = true
         binding.formLayout.tilConfirmPassword.isVisible = false

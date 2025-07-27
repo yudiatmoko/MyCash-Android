@@ -187,6 +187,7 @@ class OtpConfirmFragment : Fragment() {
         binding.formLayout.tilPassword.isVisible = false
         binding.formLayout.tilConfirmPassword.isVisible = false
         binding.formLayout.tilOtp.isVisible = true
+        binding.formLayout.tilAccessCode.isVisible = false
         binding.formLayout.tilEmail.isEnabled = false
     }
 }
